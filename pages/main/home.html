@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小星语 - 首页</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/custom.css">
+    <!-- 移除了依赖RESOURCE_CONFIG的脚本，避免在外网环境中出错 -->
+</head>
+<body class="bg-gray-50 pb-24">
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <div class="flex items-center">
+            <span>9:41</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 设备状态卡片 -->
+    <div class="card flex items-center justify-between mb-5">
+        <div class="flex items-center">
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+            <svg class="w-7 h-7 text-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path>
+            </svg>
+            </div>
+            <div class="ml-3">
+            <h3 class="text-lg font-semibold">小星语手环</h3>
+            <p class="text-sm text-gray-500">已连接 | 电量 85%</p>
+            </div>
+        </div>
+        <a href="../device/device.html" class="text-primary">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path>
+            </svg>
+        </a>
+    </div>
+    
+    <!-- 主内容区 -->
+    <div class="container mx-auto px-4 py-6">
+        <!-- 情绪状态卡片 -->
+        <div class="card mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">宝贝情绪</h2>
+                <a href="../home/mood_detail.html" class="text-primary text-sm">详情</a>
+            </div>
+            
+            <div class="flex items-center justify-center mb-4">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-2 mx-auto">
+                        <i class="fas fa-smile text-4xl text-yellow-500"></i>
+                    </div>
+                    <p class="text-sm">开心</p>
+                </div>
+                <div class="mx-4 text-gray-300">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-2 mx-auto">
+                        <i class="fas fa-grin-beam text-4xl text-blue-500"></i>
+                    </div>
+                    <p class="text-sm">兴奋</p>
+                </div>
+            </div>
+            
+            <p class="text-sm text-gray-500">今天宝贝的情绪从平静变得开心，10分钟前检测到兴奋情绪，可能需要安抚。</p>
+        </div>
+        
+        <!-- 语言训练模块 -->
+        <div class="card mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">今日训练</h2>
+                <a href="../home/training.html" class="text-primary text-sm">全部</a>
+            </div>
+            
+            <div class="bg-blue-50 rounded-lg p-4 mb-4 flex items-center">
+                <div class="bg-white rounded-full w-12 h-12 flex items-center justify-center mr-4 shadow-sm">
+                    <i class="fas fa-volume-up text-blue-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium">语音识别训练</h3>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-bar-fill" style="width: 70%;"></div>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <span class="text-xs text-gray-500">已完成70%</span>
+                        <span class="text-xs text-gray-500">剩余10分钟</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-pink-50 rounded-lg p-4 flex items-center">
+                <div class="bg-white rounded-full w-12 h-12 flex items-center justify-center mr-4 shadow-sm">
+                    <i class="fas fa-book text-pink-500 text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-medium">情景对话练习</h3>
+                    <div class="progress-bar mt-2">
+                        <div class="progress-bar-fill" style="width: 30%;"></div>
+                    </div>
+                    <div class="flex justify-between mt-1">
+                        <span class="text-xs text-gray-500">已完成30%</span>
+                        <span class="text-xs text-gray-500">剩余15分钟</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 一周数据概览 -->
+        <div class="card mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold">语言发展</h2>
+                <a href="../home/reports.html" class="text-primary text-sm">报告</a>
+            </div>
+            
+            <div class="h-48 w-full bg-gray-50 rounded-lg p-2 mb-2 flex items-end justify-around">
+                <div class="flex flex-col items-center">
+                    <div class="bg-primary h-20 w-8 rounded-t-md"></div>
+                    <span class="text-xs mt-1">一</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-primary h-28 w-8 rounded-t-md"></div>
+                    <span class="text-xs mt-1">二</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-primary h-16 w-8 rounded-t-md"></div>
+                    <span class="text-xs mt-1">三</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-primary h-32 w-8 rounded-t-md"></div>
+                    <span class="text-xs mt-1">四</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-primary h-24 w-8 rounded-t-md"></div>
+                    <span class="text-xs mt-1">五</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-primary h-36 w-8 rounded-t-md"></div>
+                    <span class="text-xs mt-1">六</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <div class="bg-accent-yellow h-40 w-8 rounded-t-md"></div>
+                    <span class="text-xs mt-1">日</span>
+                </div>
+            </div>
+            
+            <div class="flex justify-between text-sm text-gray-500">
+                <p>本周词汇量: <span class="font-medium text-primary">237</span></p>
+                <p>较上周: <span class="text-green-500">+12%</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <nav class="nav-bar">
+        <a href="home.html" class="nav-item active" id="nav-home">
+            <i class="fas fa-home nav-icon"></i>
+            <span>首页</span>
+        </a>
+        <a href="report.html" class="nav-item" id="nav-report">
+            <i class="fas fa-chart-line nav-icon"></i>
+            <span>记录</span>
+        </a>
+        <a href="expert.html" class="nav-item" id="nav-expert">
+            <i class="fas fa-user-md nav-icon"></i>
+            <span>专家</span>
+        </a>
+        <a href="system.html" class="nav-item" id="nav-system">
+            <i class="fas fa-cog nav-icon"></i>
+            <span>我的</span>
+        </a>
+    </nav>
+
+    <style>
+        .bg-primary {
+            background-color: var(--primary-color);
+        }
+        .text-primary {
+            color: var(--primary-color);
+        }
+        .bg-accent-yellow {
+            background-color: var(--accent-yellow);
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专家详情 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+        }
+        .expert-avatar {
+            width: 80px;
+            height: 80px;
+            border: 3px solid white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .tab-item {
+            padding-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .tab-item.active {
+            color: #3b82f6;
+            font-weight: 500;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .rating-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-right: 6px;
+            margin-bottom: 6px;
+            background-color: #f0f7ff;
+            color: #3b82f6;
+        }
+        .time-slot {
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        .time-slot.available {
+            background-color: #f0f7ff;
+            color: #3b82f6;
+            border: 1px solid #bfdbfe;
+        }
+        .time-slot.available:hover {
+            background-color: #dbeafe;
+            border-color: #93c5fd;
+        }
+        .time-slot.unavailable {
+            background-color: #f3f4f6;
+            color: #9ca3af;
+            border: 1px solid #e5e7eb;
+        }
+        .time-slot.selected {
+            background-color: #3b82f6;
+            color: white;
+            border: 1px solid #2563eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="title-bar bg-white flex justify-between items-center px-4 py-3">
+        <a href="../expert/consultant_list.html" class="text-blue-500">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <div class="title font-medium">专家详情</div>
+        <a href="#" class="text-blue-500">
+            <i class="far fa-share-square"></i>
+        </a>
+    </div>
+    
+    <!-- 专家信息 -->
+    <div class="expert-info bg-white p-4">
+        <div class="flex items-start">
+            <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="张医生" class="expert-avatar rounded-full object-cover">
+            <div class="ml-4 flex-1">
+                <div class="flex justify-between items-center">
+                    <div class="name text-lg font-medium">张医生</div>
+                    <div class="rating flex items-center">
+                        <div class="stars text-yellow-400 mr-1">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-gray-600">4.8</span>
+                    </div>
+                </div>
+                <div class="title text-gray-600 mt-1">心理咨询师 | 资深心理治疗师</div>
+                <div class="experience text-gray-600 mt-1">10年临床经验 | 咨询3000+小时</div>
+                <div class="consultation-info flex justify-between items-center mt-3">
+                    <div class="price text-red-500 font-medium">¥500.00/次 (60分钟)</div>
+                    <span class="text-gray-500 text-sm">已完成523次咨询</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="skills flex flex-wrap mt-4">
+            <span class="rating-tag">善于倾听 98%</span>
+            <span class="rating-tag">耐心细致 95%</span>
+            <span class="rating-tag">专业知识丰富 97%</span>
+            <span class="rating-tag">解决方案实用 94%</span>
+        </div>
+    </div>
+    
+    <!-- 选项卡 -->
+    <div class="tabs bg-white flex justify-around text-gray-600 mt-2">
+        <div class="tab-item active flex-1 text-center py-3" data-tab="introduction">简介</div>
+        <div class="tab-item flex-1 text-center py-3" data-tab="schedule">预约</div>
+        <div class="tab-item flex-1 text-center py-3" data-tab="reviews">评价</div>
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="content-area flex-1 overflow-y-auto">
+        <!-- 简介内容 -->
+        <div class="tab-content bg-white p-4 mt-2" id="introduction-content">
+            <div class="section mb-5">
+                <h3 class="text-base font-medium mb-2">专业背景</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    国家二级心理咨询师，精神分析取向咨询师，中国心理学会会员。
+                    毕业于北京大学临床心理学专业，获硕士学位。曾在三甲医院精神心理科工作8年，
+                    具有丰富的临床经验，擅长焦虑、抑郁、情绪管理、人际关系、婚恋情感等问题的咨询。
+                </p>
+            </div>
+            
+            <div class="section mb-5">
+                <h3 class="text-base font-medium mb-2">擅长领域</h3>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="specialty-item flex items-center p-2 bg-blue-50 rounded-md">
+                        <i class="fas fa-brain text-blue-500 mr-2"></i>
+                        <span class="text-gray-700 text-sm">抑郁障碍</span>
+                    </div>
+                    <div class="specialty-item flex items-center p-2 bg-blue-50 rounded-md">
+                        <i class="fas fa-wind text-blue-500 mr-2"></i>
+                        <span class="text-gray-700 text-sm">焦虑障碍</span>
+                    </div>
+                    <div class="specialty-item flex items-center p-2 bg-blue-50 rounded-md">
+                        <i class="fas fa-heart text-blue-500 mr-2"></i>
+                        <span class="text-gray-700 text-sm">情感困扰</span>
+                    </div>
+                    <div class="specialty-item flex items-center p-2 bg-blue-50 rounded-md">
+                        <i class="fas fa-users text-blue-500 mr-2"></i>
+                        <span class="text-gray-700 text-sm">人际关系</span>
+                    </div>
+                    <div class="specialty-item flex items-center p-2 bg-blue-50 rounded-md">
+                        <i class="fas fa-moon text-blue-500 mr-2"></i>
+                        <span class="text-gray-700 text-sm">睡眠障碍</span>
+                    </div>
+                    <div class="specialty-item flex items-center p-2 bg-blue-50 rounded-md">
+                        <i class="fas fa-graduation-cap text-blue-500 mr-2"></i>
+                        <span class="text-gray-700 text-sm">学业压力</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section mb-5">
+                <h3 class="text-base font-medium mb-2">咨询风格</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    擅长以来访者为中心的咨询方式，运用精神分析、认知行为疗法等多种技术，
+                    为来访者提供温暖、安全的咨询环境。注重倾听，善于理解来访者的内心需求，
+                    帮助来访者发现问题根源，找到解决方案。咨询过程中尊重个体差异，注重保护来访者隐私。
+                </p>
+            </div>
+            
+            <div class="section">
+                <h3 class="text-base font-medium mb-2">个人感言</h3>
+                <p class="text-gray-600 text-sm leading-relaxed">
+                    "每个人都有自己的生命故事，而我的使命就是陪伴您读懂自己的故事，
+                    理解其中的意义，并书写新的篇章。心理困扰并不可怕，可怕的是独自面对。
+                    在咨询中，我愿意成为您的同行者，一起探索成长和改变的可能性。"
+                </p>
+            </div>
+        </div>
+        
+        <!-- 预约内容 -->
+        <div class="tab-content bg-white p-4 mt-2 hidden" id="schedule-content">
+            <div class="date-picker mb-4">
+                <h3 class="text-base font-medium mb-3">选择日期</h3>
+                <div class="dates flex overflow-x-auto pb-2">
+                    <div class="date-item flex-shrink-0 w-16 h-20 rounded-lg mr-3 flex flex-col items-center justify-center bg-blue-500 text-white">
+                        <div class="day text-sm">今天</div>
+                        <div class="date font-medium">11/10</div>
+                        <div class="weekday text-xs mt-1">周五</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-20 rounded-lg mr-3 flex flex-col items-center justify-center bg-white border border-gray-200">
+                        <div class="day text-sm text-gray-500">明天</div>
+                        <div class="date font-medium text-gray-800">11/11</div>
+                        <div class="weekday text-xs mt-1 text-gray-500">周六</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-20 rounded-lg mr-3 flex flex-col items-center justify-center bg-white border border-gray-200">
+                        <div class="day text-sm text-gray-500">后天</div>
+                        <div class="date font-medium text-gray-800">11/12</div>
+                        <div class="weekday text-xs mt-1 text-gray-500">周日</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-20 rounded-lg mr-3 flex flex-col items-center justify-center bg-white border border-gray-200">
+                        <div class="day text-sm text-gray-500"></div>
+                        <div class="date font-medium text-gray-800">11/13</div>
+                        <div class="weekday text-xs mt-1 text-gray-500">周一</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-20 rounded-lg mr-3 flex flex-col items-center justify-center bg-white border border-gray-200">
+                        <div class="day text-sm text-gray-500"></div>
+                        <div class="date font-medium text-gray-800">11/14</div>
+                        <div class="weekday text-xs mt-1 text-gray-500">周二</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="time-picker mb-4">
+                <h3 class="text-base font-medium mb-3">选择时间段</h3>
+                <div class="times grid grid-cols-3 gap-3">
+                    <div class="time-slot available">09:00 - 10:00</div>
+                    <div class="time-slot unavailable">10:30 - 11:30</div>
+                    <div class="time-slot available">13:00 - 14:00</div>
+                    <div class="time-slot selected">14:30 - 15:30</div>
+                    <div class="time-slot available">16:00 - 17:00</div>
+                    <div class="time-slot available">19:00 - 20:00</div>
+                </div>
+                <div class="legend flex justify-start mt-3 text-xs text-gray-500">
+                    <div class="flex items-center mr-4">
+                        <div class="w-3 h-3 bg-blue-100 border border-blue-300 rounded-full mr-1"></div>
+                        <span>可预约</span>
+                    </div>
+                    <div class="flex items-center mr-4">
+                        <div class="w-3 h-3 bg-blue-500 rounded-full mr-1"></div>
+                        <span>已选择</span>
+                    </div>
+                    <div class="flex items-center">
+                        <div class="w-3 h-3 bg-gray-200 rounded-full mr-1"></div>
+                        <span>已约满</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="consultation-type mb-4">
+                <h3 class="text-base font-medium mb-3">选择咨询方式</h3>
+                <div class="types flex">
+                    <div class="type-item flex-1 mr-3 p-3 bg-blue-500 text-white rounded-lg flex flex-col items-center">
+                        <i class="fas fa-video text-2xl mb-2"></i>
+                        <span>视频咨询</span>
+                    </div>
+                    <div class="type-item flex-1 p-3 bg-white border border-gray-200 rounded-lg flex flex-col items-center">
+                        <i class="fas fa-phone-alt text-2xl mb-2 text-gray-600"></i>
+                        <span class="text-gray-600">语音咨询</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="topic mb-4">
+                <h3 class="text-base font-medium mb-3">咨询主题（选填）</h3>
+                <textarea class="w-full border border-gray-300 rounded-lg p-3 text-sm" rows="3" placeholder="简单描述您想咨询的问题，帮助专家提前了解情况..."></textarea>
+            </div>
+            
+            <div class="summary bg-blue-50 p-4 rounded-lg mb-4">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">咨询师</span>
+                    <span class="text-gray-800">张医生</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">时间</span>
+                    <span class="text-gray-800">2023/11/10 14:30-15:30</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">方式</span>
+                    <span class="text-gray-800">视频咨询</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-600">费用</span>
+                    <span class="text-red-500 font-medium">¥500.00</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 评价内容 -->
+        <div class="tab-content bg-white p-4 mt-2 hidden" id="reviews-content">
+            <div class="review-stats flex justify-between items-center mb-4">
+                <div class="ratings">
+                    <div class="total-rating text-xl font-medium">4.8<span class="text-gray-500 text-sm">/5</span></div>
+                    <div class="stars text-yellow-400 mt-1">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="total-reviews text-gray-500 text-sm mt-1">基于523条评价</div>
+                </div>
+                <div class="rating-bars">
+                    <div class="rating-bar flex items-center mb-1">
+                        <span class="text-xs text-gray-500 w-6">5星</span>
+                        <div class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
+                            <div class="h-full bg-yellow-400 rounded-full" style="width: 85%"></div>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-2">85%</span>
+                    </div>
+                    <div class="rating-bar flex items-center mb-1">
+                        <span class="text-xs text-gray-500 w-6">4星</span>
+                        <div class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
+                            <div class="h-full bg-yellow-400 rounded-full" style="width: 12%"></div>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-2">12%</span>
+                    </div>
+                    <div class="rating-bar flex items-center mb-1">
+                        <span class="text-xs text-gray-500 w-6">3星</span>
+                        <div class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
+                            <div class="h-full bg-yellow-400 rounded-full" style="width: 2%"></div>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-2">2%</span>
+                    </div>
+                    <div class="rating-bar flex items-center mb-1">
+                        <span class="text-xs text-gray-500 w-6">2星</span>
+                        <div class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
+                            <div class="h-full bg-yellow-400 rounded-full" style="width: 1%"></div>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-2">1%</span>
+                    </div>
+                    <div class="rating-bar flex items-center">
+                        <span class="text-xs text-gray-500 w-6">1星</span>
+                        <div class="w-24 h-2 bg-gray-200 rounded-full overflow-hidden ml-2">
+                            <div class="h-full bg-yellow-400 rounded-full" style="width: 0%"></div>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-2">0%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 评价列表 -->
+            <div class="reviews space-y-4">
+                <div class="review-item pb-4 border-b border-gray-100">
+                    <div class="review-header flex justify-between items-start">
+                        <div class="user-info flex items-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="用户头像" class="w-8 h-8 rounded-full object-cover">
+                            <div class="ml-2">
+                                <div class="name text-gray-800">李**</div>
+                                <div class="time text-xs text-gray-500">2023/10/28</div>
+                            </div>
+                        </div>
+                        <div class="stars text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="review-content text-gray-700 text-sm mt-2">
+                        张医生非常专业！我因为工作压力大导致睡眠问题，经过几次咨询，掌握了一些调节方法，睡眠质量有明显改善。感谢张医生的耐心倾听和专业建议！
+                    </div>
+                    <div class="tags flex flex-wrap mt-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">睡眠问题</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">工作压力</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">耐心细致</span>
+                    </div>
+                </div>
+                
+                <div class="review-item pb-4 border-b border-gray-100">
+                    <div class="review-header flex justify-between items-start">
+                        <div class="user-info flex items-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="用户头像" class="w-8 h-8 rounded-full object-cover">
+                            <div class="ml-2">
+                                <div class="name text-gray-800">王**</div>
+                                <div class="time text-xs text-gray-500">2023/10/15</div>
+                            </div>
+                        </div>
+                        <div class="stars text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="review-content text-gray-700 text-sm mt-2">
+                        我一直为人际关系问题困扰，张医生帮助我分析了问题根源，提供了实用的沟通技巧。经过一段时间的练习，我的人际关系有了很大改善。张医生的专业水平和亲和力都很棒！
+                    </div>
+                    <div class="tags flex flex-wrap mt-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">人际关系</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">沟通技巧</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">专业水平高</span>
+                    </div>
+                </div>
+                
+                <div class="review-item">
+                    <div class="review-header flex justify-between items-start">
+                        <div class="user-info flex items-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="用户头像" class="w-8 h-8 rounded-full object-cover">
+                            <div class="ml-2">
+                                <div class="name text-gray-800">张**</div>
+                                <div class="time text-xs text-gray-500">2023/09/30</div>
+                            </div>
+                        </div>
+                        <div class="stars text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="review-content text-gray-700 text-sm mt-2">
+                        最近因为情感问题很困扰，张医生耐心听我倾诉，帮助我理清思路，给出了很多实用的建议。虽然问题还没完全解决，但我已经能够更加理性地面对了。感谢张医生的帮助！
+                    </div>
+                    <div class="tags flex flex-wrap mt-2">
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">情感问题</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">耐心倾听</span>
+                        <span class="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded-full mr-2 mb-1">有帮助</span>
+                    </div>
+                </div>
+                
+                <button class="w-full py-2 text-blue-500 bg-white border border-blue-500 rounded-lg mt-4">查看更多评价</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部按钮 -->
+    <div class="bottom-bar bg-white border-t border-gray-200 p-4 flex justify-between items-center">
+        <div class="price-info">
+            <div class="price text-red-500 font-medium text-lg">¥500.00</div>
+            <div class="duration text-gray-500 text-xs">60分钟/次</div>
+        </div>
+        <a href="../expert/appointment_form.html" class="reserve-btn bg-blue-500 text-white px-8 py-2 rounded-full">立即预约</a>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 选项卡切换
+            const tabItems = document.querySelectorAll('.tab-item');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabItems.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有选项卡的激活状态
+                    tabItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // 隐藏所有内容
+                    tabContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    
+                    // 激活当前选项卡
+                    this.classList.add('active');
+                    
+                    // 显示对应内容
+                    const tabType = this.getAttribute('data-tab');
+                    document.getElementById(`${tabType}-content`).classList.remove('hidden');
+                });
+            });
+            
+            // 时间段选择
+            const timeSlots = document.querySelectorAll('.time-slot.available');
+            
+            timeSlots.forEach(slot => {
+                slot.addEventListener('click', function() {
+                    // 移除之前选择的时间段
+                    document.querySelectorAll('.time-slot.selected').forEach(selected => {
+                        selected.classList.remove('selected');
+                        selected.classList.add('available');
+                    });
+                    
+                    // 选择当前时间段
+                    this.classList.remove('available');
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

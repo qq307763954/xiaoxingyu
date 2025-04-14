@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预约成功 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+        }
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background-color: #ECFDF5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+        }
+        .success-icon i {
+            font-size: 40px;
+            color: #10B981;
+        }
+        .info-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+        .info-item i {
+            width: 24px;
+            color: #3B82F6;
+            margin-right: 12px;
+        }
+        .primary-btn {
+            background-color: #3B82F6;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+            margin-bottom: 12px;
+        }
+        .secondary-btn {
+            background-color: #F3F4F6;
+            color: #374151;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-align: center;
+            width: 100%;
+        }
+        .tips-item {
+            display: flex;
+            background-color: #F3F4F6;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .tips-item:last-child {
+            margin-bottom: 0;
+        }
+        .tips-icon {
+            background-color: #EFF6FF;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .tips-icon i {
+            color: #3B82F6;
+            font-size: 16px;
+        }
+        .tips-content {
+            flex: 1;
+        }
+        .tips-title {
+            font-weight: 500;
+            color: #1F2937;
+            margin-bottom: 4px;
+        }
+        .tips-text {
+            font-size: 12px;
+            color: #6B7280;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="title-bar bg-white flex justify-between items-center px-4 py-3">
+        <a href="../expert/expert.html" class="text-blue-500">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <div class="title font-medium">预约结果</div>
+        <div class="w-6"></div> <!-- 占位，保持标题居中 -->
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="content-area flex-1 overflow-y-auto p-4">
+        <div class="py-8">
+            <div class="success-icon mb-4">
+                <i class="fas fa-check"></i>
+            </div>
+            <h1 class="text-center text-xl font-bold mb-2">预约成功</h1>
+            <p class="text-center text-gray-500 mb-8">您已成功预约心理咨询服务</p>
+            
+            <!-- 预约信息卡片 -->
+            <div class="info-card mb-6">
+                <h3 class="text-base font-medium mb-4">预约信息</h3>
+                
+                <div class="info-item">
+                    <i class="fas fa-user-md"></i>
+                    <div>
+                        <div class="text-gray-800">张医生</div>
+                        <div class="text-xs text-gray-500">心理咨询师 | 资深心理治疗师</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <div>
+                        <div class="text-gray-800">2023年11月10日（周五）</div>
+                        <div class="text-xs text-gray-500">14:30-15:30</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-video"></i>
+                    <div>
+                        <div class="text-gray-800">视频咨询</div>
+                        <div class="text-xs text-gray-500">时长：60分钟</div>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <i class="fas fa-tag"></i>
+                    <div>
+                        <div class="text-gray-800">焦虑情绪</div>
+                    </div>
+                </div>
+                
+                <div class="border-t border-gray-100 my-4"></div>
+                
+                <div class="flex justify-between items-center">
+                    <div class="text-gray-500 text-sm">订单编号</div>
+                    <div class="text-gray-800 text-sm">CS202310270001</div>
+                </div>
+            </div>
+            
+            <!-- 温馨提示 -->
+            <div class="tips-container mb-8">
+                <h3 class="text-base font-medium mb-4">温馨提示</h3>
+                
+                <div class="tips-item">
+                    <div class="tips-icon">
+                        <i class="far fa-bell"></i>
+                    </div>
+                    <div class="tips-content">
+                        <div class="tips-title">咨询提醒</div>
+                        <div class="tips-text">我们将在咨询前1天和30分钟通过短信提醒您，请保持电话畅通</div>
+                    </div>
+                </div>
+                
+                <div class="tips-item">
+                    <div class="tips-icon">
+                        <i class="far fa-calendar-check"></i>
+                    </div>
+                    <div class="tips-content">
+                        <div class="tips-title">准时参与</div>
+                        <div class="tips-text">建议您在预约时间前5分钟进入咨询室，做好心理准备</div>
+                    </div>
+                </div>
+                
+                <div class="tips-item">
+                    <div class="tips-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="tips-content">
+                        <div class="tips-title">改期说明</div>
+                        <div class="tips-text">如需改期，请在预约时间前24小时操作，否则视为已使用</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 按钮区域 -->
+            <a href="../expert/consultation_room.html" class="primary-btn block">进入咨询室</a>
+            <a href="../expert/expert.html" class="secondary-btn block">返回首页</a>
+        </div>
+    </div>
+    
+    <script>
+        // 显示当前时间
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+        
+        updateTime();
+        setInterval(updateTime, 60000); // 每分钟更新一次
+        
+        // 添加日历提醒功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 模拟添加日历提醒
+            setTimeout(() => {
+                const toast = document.createElement('div');
+                toast.className = 'fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white py-2 px-4 rounded-full text-sm';
+                toast.textContent = '已添加到日历提醒';
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 500);
+                }, 2000);
+            }, 1000);
+        });
+    </script>
+</body>
+</html> 

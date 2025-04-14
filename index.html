@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小星语 - 儿童AI手环管理应用</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="css/custom.css" rel="stylesheet">
+  <style>
+    .device-wrapper {
+      position: relative;
+      width: 375px;
+      height: 812px;
+      margin: 20px auto;
+      border-radius: 40px;
+      box-shadow: 0 0 0 11px #1f1f1f, 0 0 0 13px #191919, 0 0 0 20px #111;
+      overflow: hidden;
+      background: white;
+    }
+    
+    .device-notch {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40%;
+      height: 30px;
+      background-color: #1f1f1f;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      z-index: 100;
+    }
+    
+    .device-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .section {
+      margin-bottom: 80px;
+    }
+    
+    .section-title {
+      position: relative;
+      margin-bottom: 30px;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #333;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body class="bg-light text-gray-800">
+    <header class="bg-white shadow-md py-6">
+      <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold text-primary">小星语 - 原型设计展示</h1>
+        <p class="text-lg text-gray-600 mt-2">针对3-6岁儿童的智能AI手环管理应用</p>
+      </div>
+    </header>
+    
+    <main class="container mx-auto px-4 py-8">
+      <!-- 用户体验分析 -->
+      <section class="section">
+        <h2 class="section-title">用户体验分析</h2>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl font-semibold mb-4">目标用户</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-primary mb-2">主要用户：3-6岁儿童的家长</h4>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>关注儿童语言发展的家长</li>
+                <li>希望通过科技手段辅助儿童语言学习</li>
+                <li>需要专业指导以促进儿童语言能力</li>
+                <li>期望有记录和跟踪功能以观察孩子进步</li>
+              </ul>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-green mb-2">次要用户：儿童语言发展专家</h4>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>为家长提供专业指导的语言发展专家</li>
+                <li>需要了解儿童语言数据的教育工作者</li>
+                <li>希望通过远程方式提供咨询服务的专家</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3 class="text-xl font-semibold mb-4">核心需求</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">智能监测</h4>
+              <p>通过AI手环实时监测和记录儿童语言表达和情绪状态，为家长提供客观数据。</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">专业指导</h4>
+              <p>提供科学的语言训练计划和专家咨询，帮助家长科学引导儿童语言发展。</p>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">记录与分析</h4>
+              <p>全面记录儿童语言互动，分析语言发展情况，展示进步轨迹和发展趋势。</p>
+            </div>
+          </div>
+          
+          <h3 class="text-xl font-semibold mb-4">交互逻辑</h3>
+          <div class="bg-gray-50 p-4 rounded-lg mb-6">
+            <p class="mb-3">产品的核心交互逻辑围绕"监测-记录-分析-指导"四个环节展开：</p>
+            <ol class="list-decimal pl-5 space-y-2">
+              <li><strong>数据采集：</strong>通过AI手环收集儿童语言数据和情绪状态</li>
+              <li><strong>智能分析：</strong>对采集的数据进行分析，识别语言发展情况</li>
+              <li><strong>记录展示：</strong>将分析结果以直观方式呈现给家长</li>
+              <li><strong>专业指导：</strong>基于分析结果提供个性化训练计划和专家建议</li>
+              <li><strong>执行反馈：</strong>记录训练效果，形成闭环，持续优化</li>
+            </ol>
+          </div>
+          
+          <h3 class="text-xl font-semibold mb-4">用户痛点与解决方案</h3>
+          <div class="overflow-x-auto">
+            <table class="min-w-full bg-white">
+              <thead>
+                <tr class="bg-primary bg-opacity-10">
+                  <th class="py-2 px-4 border-b text-left">用户痛点</th>
+                  <th class="py-2 px-4 border-b text-left">解决方案</th>
+                  <th class="py-2 px-4 border-b text-left">产品功能</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="py-2 px-4 border-b">难以客观评估孩子语言发展</td>
+                  <td class="py-2 px-4 border-b">AI技术监测与量化分析</td>
+                  <td class="py-2 px-4 border-b">情绪状态监测、语言数据统计</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-4 border-b">缺乏专业指导</td>
+                  <td class="py-2 px-4 border-b">专家在线咨询</td>
+                  <td class="py-2 px-4 border-b">专家页面、一键咨询</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-4 border-b">不知如何科学训练</td>
+                  <td class="py-2 px-4 border-b">个性化训练计划</td>
+                  <td class="py-2 px-4 border-b">每日训练模块、进度跟踪</td>
+                </tr>
+                <tr>
+                  <td class="py-2 px-4 border-b">无法持续记录孩子进步</td>
+                  <td class="py-2 px-4 border-b">全面记录与数据可视化</td>
+                  <td class="py-2 px-4 border-b">记录页面、发展趋势图表</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+      
+      <!-- 产品界面规划 -->
+      <section class="section">
+        <h2 class="section-title">产品界面规划</h2>
+        <div class="bg-white rounded-lg shadow-md p-6">
+          <h3 class="text-xl font-semibold mb-4">信息架构</h3>
+          <div class="bg-gray-50 p-4 rounded-lg mb-6">
+            <p class="mb-3">产品采用四大核心模块结构，通过底部导航栏快速切换：</p>
+            <ol class="list-decimal pl-5 space-y-2">
+              <li><strong>首页：</strong>汇总核心信息，展示孩子状态、训练计划和数据概览</li>
+              <li><strong>记录：</strong>详细记录与孩子的互动历史，便于回顾和分析</li>
+              <li><strong>专家：</strong>专业咨询入口，连接儿童语言发展专家</li>
+              <li><strong>我的：</strong>个人中心，管理设置、订阅和账户信息</li>
+            </ol>
+          </div>
+          
+          <h3 class="text-xl font-semibold mb-4">关键页面功能规划</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-primary mb-2">首页</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>设备状态卡片：显示连接状态和电量</li>
+                <li>情绪状态监测：实时展示孩子的情绪变化</li>
+                <li>今日训练：针对性语言训练计划</li>
+                <li>数据概览：语言发展趋势图表</li>
+              </ul>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-green mb-2">记录页</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>设备选择器：切换不同已连接设备</li>
+                <li>时间筛选器：按日期查看历史记录</li>
+                <li>分类标签：按类型筛选互动内容</li>
+                <li>详细记录：查看完整对话内容</li>
+              </ul>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-yellow mb-2">专家页</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>紧急咨询：快速连接在线专家</li>
+                <li>专家筛选：按专业领域选择专家</li>
+                <li>专家详情：查看资质和评价</li>
+                <li>预约/咨询：文字/语音/视频咨询</li>
+              </ul>
+            </div>
+            <div class="bg-pink-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-pink mb-2">我的页面</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>用户信息：账户和会员状态</li>
+                <li>快速入口：核心功能快捷方式</li>
+                <li>会员管理：订阅和特权查看</li>
+                <li>设置与支持：应用设置和帮助</li>
+              </ul>
+            </div>
+          </div>
+          
+          <h3 class="text-xl font-semibold mb-4">UI设计系统</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">色彩系统</h4>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <div class="w-12 h-12 rounded bg-blue-500 flex items-center justify-center text-white text-xs">主色调</div>
+                <div class="w-12 h-12 rounded bg-yellow-500 flex items-center justify-center text-white text-xs">辅助色</div>
+                <div class="w-12 h-12 rounded bg-green-500 flex items-center justify-center text-white text-xs">辅助色</div>
+                <div class="w-12 h-12 rounded bg-pink-500 flex items-center justify-center text-white text-xs">辅助色</div>
+                <div class="w-12 h-12 rounded bg-gray-800 flex items-center justify-center text-white text-xs">文本色</div>
+                <div class="w-12 h-12 rounded bg-gray-500 flex items-center justify-center text-white text-xs">次要色</div>
+                <div class="w-12 h-12 rounded bg-gray-100 flex items-center justify-center text-gray-800 text-xs">背景色</div>
+              </div>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">组件规范</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>卡片：圆角12px，轻微阴影</li>
+                <li>按钮：圆角10px，触感反馈</li>
+                <li>标签：圆角全圆，文字居中</li>
+                <li>图表：简洁清晰，色彩和谐</li>
+                <li>输入框：边框轻巧，聚焦明显</li>
+              </ul>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">交互原则</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li>简洁明了：减少操作层级</li>
+                <li>直观反馈：操作有明确响应</li>
+                <li>一致性：保持界面风格统一</li>
+                <li>亲和力：温馨友好的视觉风格</li>
+                <li>易于理解：避免专业术语</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+        
+        <!-- 主导航页面展示 -->
+        <h2 class="text-2xl font-bold text-gray-800 mb-4">主导航页面</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <!-- 首页 -->
+            <div class="prototype-container">
+                <div class="prototype-frame">
+                    <iframe src="pages/main/home.html" frameborder="0" width="100%" height="100%"></iframe>
+                </div>
+                <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">首页</h3>
+                    <p class="text-gray-700 mb-4">首页展示儿童实时情绪状态、训练计划进度和语言发展概览。</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                    <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                        <li>情感化界面设计，使用表情图标直观展示情绪状态</li>
+                        <li>进度可视化，激励家长和孩子共同完成训练</li>
+                        <li>数据图表简洁明了，便于家长快速了解发展情况</li>
+                    </ul>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>实时情绪监测与变化提醒</li>
+                        <li>训练计划进度与剩余时间</li>
+                        <li>语言发展数据可视化</li>
+                        <li>设备连接状态管理</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 记录页 -->
+            <div class="prototype-container">
+                <div class="prototype-frame">
+                    <iframe src="pages/main/report.html" frameborder="0" width="100%" height="100%"></iframe>
+                </div>
+                <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">记录</h3>
+                    <p class="text-gray-700 mb-4">记录页面整理设备记录的对话内容，帮助家长回顾并了解孩子的沟通内容。</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                    <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                        <li>分类整理，使内容有序且易于查找</li>
+                        <li>时间线展示，建立清晰的时间脉络</li>
+                        <li>摘要预览，减少不必要的点击操作</li>
+                    </ul>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>多设备记录切换</li>
+                        <li>按日期和类型筛选</li>
+                        <li>对话详情查看与分享</li>
+                        <li>语音播放功能</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 专家页 -->
+            <div class="prototype-container">
+                <div class="prototype-frame">
+                    <iframe src="pages/main/expert.html" frameborder="0" width="100%" height="100%"></iframe>
+                </div>
+                <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">专家</h3>
+                    <p class="text-gray-700 mb-4">专家页面提供专业的儿童语言和心理发展咨询服务，连接家长与专业人士。</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                    <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                        <li>专业可信的形象展示，增强用户信任感</li>
+                        <li>详尽的专家信息介绍，帮助用户做出选择</li>
+                        <li>便捷的预约与咨询流程，降低使用门槛</li>
+                    </ul>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>专家筛选与检索</li>
+                        <li>在线状态显示</li>
+                        <li>预约与即时咨询</li>
+                        <li>紧急咨询通道</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 我的页 -->
+            <div class="prototype-container">
+                <div class="prototype-frame">
+                    <iframe src="pages/main/system.html" frameborder="0" width="100%" height="100%"></iframe>
+                </div>
+                <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-bold text-gray-800 mb-2">我的</h3>
+                    <p class="text-gray-700 mb-4">"我的"页面集中管理用户账户信息和系统设置，提供帮助与支持。</p>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                    <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                        <li>功能分组清晰，方便用户快速找到所需设置</li>
+                        <li>视觉图标辅助，增强识别度</li>
+                        <li>重要信息突出，提升用户体验</li>
+                    </ul>
+                    
+                    <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                    <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                        <li>会员管理与订阅</li>
+                        <li>账户安全与认证</li>
+                        <li>通用设置与偏好</li>
+                        <li>帮助文档与问题反馈</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 子页面描述 -->
+        <section class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">子页面设计规划</h2>
+            <div class="text-gray-700 space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- 首页子页面 -->
+                    <div>
+                        <h3 class="font-bold text-xl text-primary mb-2">首页子页面</h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>设备选择页</strong>：列表展示所有已连接设备，支持添加新设备</li>
+                            <li><strong>情绪详情页</strong>：展示情绪变化趋势图表，包含详细分析和建议</li>
+                            <li><strong>训练页面</strong>：详细的训练内容和进度，可互动操作</li>
+                            <li><strong>报表详情页</strong>：完整的语言发展数据分析，支持时间范围选择</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 记录子页面 -->
+                    <div>
+                        <h3 class="font-bold text-xl text-primary mb-2">记录子页面</h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>聊天记录列表</strong>：按日期和类型分类展示的对话记录</li>
+                            <li><strong>聊天详情页</strong>：完整对话内容展示，支持语音播放和分享</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 专家子页面 -->
+                    <div>
+                        <h3 class="font-bold text-xl text-primary mb-2">专家子页面</h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>专家列表页</strong>：展示所有可咨询专家，提供筛选功能</li>
+                            <li><strong>咨询对话页</strong>：支持文字/语音/视频通话的咨询界面</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- 我的子页面 -->
+                    <div>
+                        <h3 class="font-bold text-xl text-primary mb-2">我的子页面</h3>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>订阅管理页</strong>：展示当前订阅状态和可选套餐</li>
+                            <li><strong>兑换码页面</strong>：输入和激活兑换码的界面</li>
+                            <li><strong>设置页面</strong>：包含语言切换、通知设置等选项</li>
+                            <li><strong>使用说明页</strong>：图文并茂的App使用教程</li>
+                            <li><strong>常见问题页</strong>：常见问题和解答列表</li>
+                            <li><strong>问题反馈页</strong>：提交问题和建议的表单</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 子页面展示 -->
+    <section class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">子页面展示</h2>
+        <!-- 首页子页面 -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4 py-2 border-b">
+                <h3 class="text-xl font-bold text-gray-800">首页子界面</h3>
+                <button id="homeToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+            </div>
+            <div id="homeContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                <!-- 情绪详情页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/home/mood_detail.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">情绪详情页</h3>
+                        <p class="text-gray-700 mb-4">展示儿童情绪变化趋势、分析建议和统计数据。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>情感化的数据可视化，便于家长理解孩子情绪状态</li>
+                            <li>时间轴设计，清晰展示情绪变化趋势</li>
+                            <li>专业建议展示，帮助家长采取适当行动</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>情绪变化趋势图表</li>
+                            <li>情绪统计数据展示</li>
+                            <li>专业分析建议</li>
+                            <li>时间范围筛选</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 训练页面 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/home/training.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">语言训练页</h3>
+                        <p class="text-gray-700 mb-4">展示语言训练计划和进度，提供互动训练功能。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>游戏化设计，提升儿童参与兴趣</li>
+                            <li>进度可视化，激励家长和孩子共同完成训练</li>
+                            <li>互动反馈机制，增强训练效果</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>训练计划展示</li>
+                            <li>进度跟踪与统计</li>
+                            <li>互动训练模块</li>
+                            <li>训练效果反馈</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 报表详情页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/home/reports.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">报表详情页</h3>
+                        <p class="text-gray-700 mb-4">展示完整的语言发展数据分析报表，支持多种时间范围选择。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>专业的数据可视化，便于家长理解孩子语言发展情况</li>
+                            <li>多维度分析展示，提供全面的发展评估</li>
+                            <li>时间范围选择，支持不同周期的数据对比</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>语言发展数据图表</li>
+                            <li>多维度分析指标</li>
+                            <li>时间范围筛选</li>
+                            <li>数据导出与分享</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 记录子页面 -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4 py-2 border-b">
+                <h3 class="text-xl font-bold text-gray-800">记录子界面</h3>
+                <button id="reportToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+            </div>
+            <div id="reportContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                <!-- 聊天详情页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/report/chat_detail.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">聊天详情页</h3>
+                        <p class="text-gray-700 mb-4">展示儿童与AI手环的完整对话内容，支持语音播放和分享。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>对话式布局，还原真实交流场景</li>
+                            <li>时间线展示，建立清晰的时间脉络</li>
+                            <li>便捷的操作入口，提升用户体验</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>完整对话内容展示</li>
+                            <li>语音播放功能</li>
+                            <li>内容分享功能</li>
+                            <li>情绪标签展示</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 专家子页面 -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4 py-2 border-b">
+                <h3 class="text-xl font-bold text-gray-800">专家子界面</h3>
+                <button id="expertToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+            </div>
+            <div id="expertContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                <!-- 专家列表页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/consultant_list.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">专家列表页</h3>
+                        <p class="text-gray-700 mb-4">展示所有可咨询专家，提供筛选和搜索功能。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>清晰的分类展示，便于用户快速找到所需专家</li>
+                            <li>丰富的筛选条件，满足不同用户需求</li>
+                            <li>专家卡片设计，突出关键信息</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>专家分类展示</li>
+                            <li>多条件筛选</li>
+                            <li>专家详情入口</li>
+                            <li>预约咨询入口</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 专家详情页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/expert_detail.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">专家详情页</h3>
+                        <p class="text-gray-700 mb-4">展示专家详细信息，包括资质、评价和可预约时间。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>信息层级分明，突出专家核心优势</li>
+                            <li>真实评价展示，增强用户信任感</li>
+                            <li>便捷的预约入口，提升转化率</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>专家资质展示</li>
+                            <li>用户评价浏览</li>
+                            <li>预约时间选择</li>
+                            <li>咨询方式选择</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 咨询室页面 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/consultation_room.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">咨询室页面</h3>
+                        <p class="text-gray-700 mb-4">提供文字、语音和视频咨询的实时交互界面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>简洁的交互设计，降低使用门槛</li>
+                            <li>实时反馈机制，提升咨询体验</li>
+                            <li>多模式切换，满足不同场景需求</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>实时文字聊天</li>
+                            <li>语音通话</li>
+                            <li>视频通话</li>
+                            <li>咨询记录保存</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 预约页面 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/appointment.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">预约页面</h3>
+                        <p class="text-gray-700 mb-4">选择专家和预约时间的界面，支持多种咨询方式。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>直观的时间选择界面，减少用户操作步骤</li>
+                            <li>清晰的咨询方式说明，帮助用户做出选择</li>
+                            <li>实时可用性检查，避免预约冲突</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>专家选择</li>
+                            <li>日期和时间选择</li>
+                            <li>咨询方式选择</li>
+                            <li>预约确认</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 预约表单页面 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/appointment_form.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">预约表单页面</h3>
+                        <p class="text-gray-700 mb-4">填写预约详细信息和咨询需求的表单页面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>分步表单设计，降低用户填写负担</li>
+                            <li>清晰的输入提示，减少错误提交</li>
+                            <li>自动保存功能，防止数据丢失</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>个人信息填写</li>
+                            <li>咨询需求描述</li>
+                            <li>紧急联系人设置</li>
+                            <li>表单验证与提交</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 预约成功页面 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/appointment_success.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">预约成功页面</h3>
+                        <p class="text-gray-700 mb-4">显示预约成功信息和后续操作指引的确认页面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>明确的成功反馈，增强用户信心</li>
+                            <li>清晰的后续步骤指引，提升用户体验</li>
+                            <li>便捷的操作入口，方便用户继续使用</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>预约详情展示</li>
+                            <li>日历添加功能</li>
+                            <li>提醒设置</li>
+                            <li>快速导航入口</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 通话记录页面 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/call_record.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">通话记录页面</h3>
+                        <p class="text-gray-700 mb-4">展示历史咨询记录和通话详情的列表页面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>时间线布局，便于查看历史记录</li>
+                            <li>状态标签设计，快速识别通话状态</li>
+                            <li>搜索和筛选功能，提高查找效率</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>通话记录列表</li>
+                            <li>状态筛选</li>
+                            <li>时间范围选择</li>
+                            <li>详情查看入口</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 通话总结页面 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/expert/call_summary.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">通话总结页面</h3>
+                        <p class="text-gray-700 mb-4">展示咨询总结和专业建议的详情页面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>结构化展示咨询总结内容</li>
+                            <li>突出显示专业建议部分</li>
+                            <li>支持一键分享功能</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>咨询总结详情</li>
+                            <li>专业建议展示</li>
+                            <li>分享功能</li>
+                            <li>收藏功能</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        
+        <!-- 系统子页面 -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4 py-2 border-b">
+                <h3 class="text-xl font-bold text-gray-800">我的子界面</h3>
+                <button id="systemToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+            </div>
+            <div id="systemContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                <!-- 会员管理页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/system/subscription.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">会员管理页</h3>
+                        <p class="text-gray-700 mb-4">展示会员状态和提供会员套餐选择的页面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>清晰展示会员权益和状态</li>
+                            <li>直观的套餐对比功能</li>
+                            <li>简洁的订阅流程</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>会员状态展示</li>
+                            <li>套餐选择</li>
+                            <li>订阅管理</li>
+                            <li>续费提醒</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>清晰的会员状态展示，避免混淆</li>
+                            <li>套餐对比直观，便于选择</li>
+                            <li>支付流程简化，减少操作步骤</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>会员状态与权益展示</li>
+                            <li>套餐选择与购买</li>
+                            <li>订阅管理与续费</li>
+                            <li>支付记录查询</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 设备相关页面 -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4 py-2 border-b">
+                <h3 class="text-xl font-bold text-gray-800">设备相关界面</h3>
+                <button id="deviceToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+            </div>
+            <div id="deviceContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                <!-- 设备管理页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/device/device.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">设备管理页</h3>
+                        <p class="text-gray-700 mb-4">展示并选择已连接的设备，支持添加新设备。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>直观的设备状态展示，便于用户快速了解连接情况</li>
+                            <li>简洁的添加流程，降低用户操作难度</li>
+                            <li>清晰的视觉反馈，增强用户操作信心</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>已连接设备列表展示</li>
+                            <li>设备连接状态与电量显示</li>
+                            <li>添加新设备引导</li>
+                            <li>设备管理入口</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 设备配对页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/device/pairing.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">设备配对页</h3>
+                        <p class="text-gray-700 mb-4">引导用户完成设备配对过程的步骤式界面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>步骤式设计，降低用户操作难度</li>
+                            <li>清晰的进度指示，增强用户掌控感</li>
+                            <li>实时的状态反馈，提升配对成功率</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>分步配对引导</li>
+                            <li>设备搜索与识别</li>
+                            <li>配对状态实时反馈</li>
+                            <li>故障排查帮助</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 认证页面 -->
+        <div class="mb-12">
+            <div class="flex items-center justify-between mb-4 py-2 border-b">
+                <h3 class="text-xl font-bold text-gray-800">认证页面</h3>
+                <button id="authToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+            </div>
+            <div id="authContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
+                <!-- 登录页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/auth/login.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">登录页</h3>
+                        <p class="text-gray-700 mb-4">用户登录界面，支持账号密码和短信验证码登录。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>简化登录流程，减少用户操作步骤</li>
+                            <li>清晰的错误提示，帮助用户快速解决问题</li>
+                            <li>安全验证机制，保障账户安全</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>账号密码登录</li>
+                            <li>短信验证码登录</li>
+                            <li>记住密码功能</li>
+                            <li>忘记密码入口</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 注册页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/auth/register.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">注册页</h3>
+                        <p class="text-gray-700 mb-4">新用户注册界面，支持手机号和验证码注册。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>分步引导，降低用户注册难度</li>
+                            <li>实时验证反馈，提高注册成功率</li>
+                            <li>隐私保护声明，增强用户信任感</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>手机号验证注册</li>
+                            <li>密码设置与强度提示</li>
+                            <li>用户协议确认</li>
+                            <li>注册成功自动登录</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 忘记密码页 -->
+                <div class="prototype-container">
+                    <div class="prototype-frame">
+                        <iframe src="pages/auth/forgot.html" frameborder="0" width="100%" height="100%"></iframe>
+                    </div>
+                    <div class="prototype-description bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-2">忘记密码页</h3>
+                        <p class="text-gray-700 mb-4">通过手机验证重置密码的页面。</p>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">设计理念：</h4>
+                        <ul class="list-disc pl-5 mb-4 text-gray-700 space-y-1">
+                            <li>清晰的流程指引，帮助用户顺利完成密码重置</li>
+                            <li>安全验证机制，防止账户被恶意重置</li>
+                            <li>简洁的表单设计，减少用户操作负担</li>
+                        </ul>
+                        
+                        <h4 class="font-semibold text-gray-800 mb-2">关键功能：</h4>
+                        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+                            <li>手机号验证</li>
+                            <li>新密码设置与确认</li>
+                            <li>密码强度提示</li>
+                            <li>重置成功自动跳转</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>小星语 - 儿童AI手环管理系统原型设计</p>
+            <p class="mt-2 text-gray-400">© 2025 AD-AI All Rights Reserved</p>
+        </div>
+    </footer>
+<script src="js/main.js"></script>
+<script>
+    document.getElementById('authToggleBtn').addEventListener('click', function() {
+        toggleElementVisibility('authToggleBtn', 'authContainer');
+    });
+    document.getElementById('homeToggleBtn').addEventListener('click', function() {
+        toggleElementVisibility('homeToggleBtn', 'homeContainer');
+    });
+    document.getElementById('reportToggleBtn').addEventListener('click', function() {
+        toggleElementVisibility('reportToggleBtn', 'reportContainer');
+    });
+    document.getElementById('deviceToggleBtn').addEventListener('click', function() {
+        toggleElementVisibility('deviceToggleBtn', 'deviceContainer');
+    });
+    document.getElementById('expertToggleBtn').addEventListener('click', function() {
+        toggleElementVisibility('expertToggleBtn', 'expertContainer');
+    });
+    document.getElementById('systemToggleBtn').addEventListener('click', function() {
+        toggleElementVisibility('systemToggleBtn', 'systemContainer');
+    });
+</script>
+</body>
+</html>

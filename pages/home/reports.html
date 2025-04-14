@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发展报告 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .ios-status-bar {
+            height: 20px;
+        }
+        .report-container {
+            max-width: 100%;
+            padding: 0 16px;
+        }
+        .report-header {
+            background-color: #4A90E2;
+            color: white;
+            padding: 20px 16px;
+            border-radius: 0 0 20px 20px;
+            margin: 0 -16px 20px;
+        }
+        .tab-container {
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            padding: 4px;
+            margin-top: 16px;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        .tab.active {
+            background-color: #4A90E2;
+            color: white;
+            font-weight: bold;
+        }
+        .date-selector {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 16px 0;
+        }
+        .date-display {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .chart-container {
+            background-color: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .chart-title {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .chart-legend {
+            display: flex;
+            align-items: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-left: 12px;
+            font-size: 12px;
+        }
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            margin-right: 4px;
+        }
+        .metric-container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        .metric-card {
+            flex: 1;
+            background-color: white;
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin: 0 4px;
+        }
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 4px;
+        }
+        .metric-label {
+            font-size: 12px;
+            color: #666;
+        }
+        .metric-trend {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        .trend-up {
+            color: #4CAF50;
+        }
+        .trend-down {
+            color: #F44336;
+        }
+        .analysis-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+        .analysis-header {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .analysis-header i {
+            margin-right: 8px;
+            color: #4A90E2;
+        }
+        .analysis-content {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .highlight {
+            background-color: #FFF3E0;
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+        .suggestion-item {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+        .suggestion-item::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4A90E2;
+            font-weight: bold;
+        }
+        .comparison-container {
+            display: flex;
+            margin-top: 12px;
+        }
+        .comparison-item {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+        }
+        .comparison-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        .comparison-value {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .comparison-arrow {
+            font-size: 20px;
+            color: #666;
+        }
+        .vocab-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+        .vocab-item {
+            background-color: #E3F2FD;
+            color: #2196F3;
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 12px;
+            margin: 0 6px 6px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">12:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <div class="report-container mx-auto pb-24">
+        <!-- 报告头部 -->
+        <div class="report-header">
+            <div class="flex justify-between items-center">
+                <a href="../main/home.html" class="text-white">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <h1 class="text-lg font-bold">语言发展报告</h1>
+                <a href="#" class="text-white">
+                    <i class="fas fa-share-alt"></i>
+                </a>
+            </div>
+            
+            <!-- 时间范围选择 -->
+            <div class="tab-container">
+                <div class="tab" id="dailyTab">日</div>
+                <div class="tab active" id="weeklyTab">周</div>
+                <div class="tab" id="monthlyTab">月</div>
+            </div>
+            
+            <!-- 日期选择器 -->
+            <div class="date-selector">
+                <button class="text-white">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="date-display">2023年10月2日 - 10月8日</div>
+                <button class="text-white">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 关键指标 -->
+        <div class="metric-container">
+            <div class="metric-card">
+                <div class="metric-value">423</div>
+                <div class="metric-label">词汇量</div>
+                <div class="metric-trend trend-up">
+                    <i class="fas fa-arrow-up"></i> 15%
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">128</div>
+                <div class="metric-label">对话次数</div>
+                <div class="metric-trend trend-up">
+                    <i class="fas fa-arrow-up"></i> 8%
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">4.2</div>
+                <div class="metric-label">语句复杂度</div>
+                <div class="metric-trend trend-down">
+                    <i class="fas fa-arrow-down"></i> 3%
+                </div>
+            </div>
+        </div>
+        
+        <!-- 词汇量增长图表 -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">词汇量增长</div>
+                <div class="chart-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #4A90E2;"></div>
+                        <span>本周</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background-color: #e0e0e0;"></div>
+                        <span>上周</span>
+                    </div>
+                </div>
+            </div>
+            <canvas id="vocabChart" height="200"></canvas>
+        </div>
+        
+        <!-- 语言类型分布图表 -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">语言类型分布</div>
+            </div>
+            <canvas id="languageTypeChart" height="200"></canvas>
+        </div>
+        
+        <!-- 情绪表达能力图表 -->
+        <div class="chart-container">
+            <div class="chart-header">
+                <div class="chart-title">情绪表达能力</div>
+            </div>
+            <canvas id="emotionChart" height="200"></canvas>
+        </div>
+        
+        <!-- 发展分析 -->
+        <div class="analysis-section">
+            <div class="analysis-header">
+                <i class="fas fa-chart-line"></i> 本周发展分析
+            </div>
+            <div class="analysis-content">
+                <p>根据本周数据，小朋友在<span class="highlight">词汇量</span>方面有显著提升，特别是在描述情绪和日常活动的词汇使用上。对话次数也有所增加，表明沟通意愿增强。</p>
+                
+                <p class="mt-3">但需要注意的是，语句复杂度略有下降，可能是因为新掌握的词汇尚未完全融入日常表达中。</p>
+                
+                <div class="comparison-container">
+                    <div class="comparison-item">
+                        <div class="comparison-label">同龄平均水平</div>
+                        <div class="comparison-value">380词</div>
+                    </div>
+                    <div class="comparison-arrow">→</div>
+                    <div class="comparison-item">
+                        <div class="comparison-label">当前水平</div>
+                        <div class="comparison-value">423词</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新掌握的词汇 -->
+        <div class="analysis-section">
+            <div class="analysis-header">
+                <i class="fas fa-book"></i> 新掌握的词汇
+            </div>
+            <div class="analysis-content">
+                <p>本周新增加的词汇主要集中在情绪描述和日常活动领域：</p>
+                
+                <div class="vocab-container">
+                    <div class="vocab-item">激动</div>
+                    <div class="vocab-item">失望</div>
+                    <div class="vocab-item">欢快</div>
+                    <div class="vocab-item">整理</div>
+                    <div class="vocab-item">收拾</div>
+                    <div class="vocab-item">思考</div>
+                    <div class="vocab-item">珍惜</div>
+                    <div class="vocab-item">分享</div>
+                    <div class="vocab-item">商量</div>
+                    <div class="vocab-item">决定</div>
+                    <div class="vocab-item">协助</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 发展建议 -->
+        <div class="analysis-section">
+            <div class="analysis-header">
+                <i class="fas fa-lightbulb"></i> 发展建议
+            </div>
+            <div class="analysis-content">
+                <div class="suggestion-item">鼓励使用完整句子：在日常对话中，引导孩子用更完整的句子表达，提高语句复杂度。</div>
+                
+                <div class="suggestion-item">情景角色扮演：通过角色扮演游戏，帮助孩子在不同情境中灵活运用新词汇。</div>
+                
+                <div class="suggestion-item">绘本阅读：每天坚持10-15分钟的亲子绘本阅读，着重讲解故事中的因果关系。</div>
+                
+                <div class="suggestion-item">情绪卡片游戏：使用情绪卡片，帮助孩子更准确地识别和表达复杂情绪。</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around py-2">
+        <a href="../main/home.html" class="nav-item flex flex-col items-center p-2">
+            <i class="fas fa-home text-blue-500"></i>
+            <span class="text-xs text-blue-500">首页</span>
+        </a>
+        <a href="../main/report.html" class="nav-item flex flex-col items-center p-2">
+            <i class="fas fa-chart-line text-gray-500"></i>
+            <span class="text-xs text-gray-500">记录</span>
+        </a>
+        <a href="../main/expert.html" class="nav-item flex flex-col items-center p-2">
+            <i class="fas fa-user-md text-gray-500"></i>
+            <span class="text-xs text-gray-500">专家</span>
+        </a>
+        <a href="../main/system.html" class="nav-item flex flex-col items-center p-2">
+            <i class="fas fa-cog text-gray-500"></i>
+            <span class="text-xs text-gray-500">设置</span>
+        </a>
+    </div>
+    
+    <script>
+        // 显示当前时间
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+        
+        // 初始化图表
+        function initCharts() {
+            // 词汇量增长图表
+            const vocabCtx = document.getElementById('vocabChart').getContext('2d');
+            const vocabChart = new Chart(vocabCtx, {
+                type: 'line',
+                data: {
+                    labels: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                    datasets: [{
+                        label: '本周',
+                        data: [380, 385, 395, 400, 405, 415, 423],
+                        borderColor: '#4A90E2',
+                        backgroundColor: 'rgba(74, 144, 226, 0.1)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: '上周',
+                        data: [350, 358, 365, 370, 373, 378, 385],
+                        borderColor: '#e0e0e0',
+                        backgroundColor: 'rgba(224, 224, 224, 0.1)',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        tension: 0.4,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            min: 340
+                        }
+                    }
+                }
+            });
+            
+            // 语言类型分布图表
+            const languageTypeCtx = document.getElementById('languageTypeChart').getContext('2d');
+            const languageTypeChart = new Chart(languageTypeCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['名词', '动词', '形容词', '副词', '连接词', '代词'],
+                    datasets: [{
+                        label: '词汇数量',
+                        data: [180, 105, 75, 35, 18, 10],
+                        backgroundColor: [
+                            'rgba(74, 144, 226, 0.7)',
+                            'rgba(156, 39, 176, 0.7)',
+                            'rgba(76, 175, 80, 0.7)',
+                            'rgba(255, 152, 0, 0.7)',
+                            'rgba(33, 150, 243, 0.7)',
+                            'rgba(233, 30, 99, 0.7)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // 情绪表达能力图表
+            const emotionCtx = document.getElementById('emotionChart').getContext('2d');
+            const emotionChart = new Chart(emotionCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['高兴', '生气', '悲伤', '惊讶', '害怕', '厌恶'],
+                    datasets: [{
+                        label: '本周',
+                        data: [85, 65, 70, 80, 60, 55],
+                        backgroundColor: 'rgba(74, 144, 226, 0.2)',
+                        borderColor: '#4A90E2',
+                        pointBackgroundColor: '#4A90E2',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#4A90E2'
+                    }, {
+                        label: '上周',
+                        data: [80, 60, 65, 75, 50, 45],
+                        backgroundColor: 'rgba(224, 224, 224, 0.2)',
+                        borderColor: '#9e9e9e',
+                        pointBackgroundColor: '#9e9e9e',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#9e9e9e',
+                        borderDash: [5, 5]
+                    }]
+                },
+                options: {
+                    elements: {
+                        line: {
+                            tension: 0.1
+                        }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: {
+                                display: true
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    }
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新状态栏时间
+            updateTime();
+            setInterval(updateTime, 60000); // 每分钟更新一次
+            
+            // 初始化图表
+            initCharts();
+            
+            // 时间范围选择标签切换
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // 根据选择的时间范围更新日期显示
+                    const dateDisplay = document.querySelector('.date-display');
+                    if (this.id === 'dailyTab') {
+                        dateDisplay.textContent = '2023年10月8日';
+                    } else if (this.id === 'weeklyTab') {
+                        dateDisplay.textContent = '2023年10月2日 - 10月8日';
+                    } else if (this.id === 'monthlyTab') {
+                        dateDisplay.textContent = '2023年10月';
+                    }
+                });
+            });
+            
+            // 日期选择器按钮点击事件
+            const dateButtons = document.querySelectorAll('.date-selector button');
+            dateButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    alert('切换到其他时间段的数据');
+                });
+            });
+            
+            // 分享按钮
+            document.querySelector('.fa-share-alt').addEventListener('click', function() {
+                alert('分享报告功能');
+            });
+        });
+    </script>
+</body>
+</html> 

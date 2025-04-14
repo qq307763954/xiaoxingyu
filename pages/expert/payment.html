@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付订单 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+        }
+        .step-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .step-circle.active {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .step-circle.completed {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .step-circle.inactive {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+        }
+        .step-line {
+            height: 2px;
+            flex-grow: 1;
+        }
+        .step-line.active {
+            background-color: #3b82f6;
+        }
+        .step-line.inactive {
+            background-color: #e5e7eb;
+        }
+        .payment-option {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .payment-option.selected {
+            border-color: #3b82f6;
+            background-color: #f0f7ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="title-bar bg-white flex justify-between items-center px-4 py-3">
+        <a href="appointment.html" class="text-blue-500">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <div class="title font-medium">支付订单</div>
+        <div class="w-5"></div>
+    </div>
+    
+    <!-- 进度条 -->
+    <div class="stepper bg-white px-6 py-4 flex items-center">
+        <div class="step flex flex-col items-center">
+            <div class="step-circle completed">
+                <i class="fas fa-check text-xs"></i>
+            </div>
+            <div class="text-xs mt-1 text-blue-500">选择专家</div>
+        </div>
+        <div class="step-line active"></div>
+        <div class="step flex flex-col items-center">
+            <div class="step-circle completed">
+                <i class="fas fa-check text-xs"></i>
+            </div>
+            <div class="text-xs mt-1 text-blue-500">填写信息</div>
+        </div>
+        <div class="step-line active"></div>
+        <div class="step flex flex-col items-center">
+            <div class="step-circle active">3</div>
+            <div class="text-xs mt-1 text-blue-500">支付订单</div>
+        </div>
+        <div class="step-line inactive"></div>
+        <div class="step flex flex-col items-center">
+            <div class="step-circle inactive">4</div>
+            <div class="text-xs mt-1 text-gray-400">完成预约</div>
+        </div>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="content flex-1 overflow-y-auto">
+        <!-- 订单信息 -->
+        <div class="order-info bg-white p-4 mt-2">
+            <h3 class="font-bold mb-3">订单信息</h3>
+            <div class="border-b border-gray-200 pb-3">
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">订单编号</span>
+                    <span class="text-gray-800">202310301426789</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">咨询专家</span>
+                    <span class="text-gray-800">李明 教授</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">咨询方式</span>
+                    <span class="text-gray-800">视频咨询</span>
+                </div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-600">咨询时间</span>
+                    <span class="text-gray-800">2023-10-30 14:00-14:50</span>
+                </div>
+            </div>
+            <div class="pt-3">
+                <div class="flex justify-between mb-2 font-bold">
+                    <span>订单金额</span>
+                    <span class="text-red-500">¥500.00</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 支付方式 -->
+        <div class="payment-methods bg-white p-4 mt-2">
+            <h3 class="font-bold mb-3">选择支付方式</h3>
+            
+            <!-- 余额支付 -->
+            <div class="payment-option p-3 mb-3 selected">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="bg-blue-50 p-2 rounded-md">
+                            <i class="fas fa-wallet text-blue-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-medium">余额支付</div>
+                            <div class="text-xs text-gray-500">账户余额：¥0</div>
+                        </div>
+                    </div>
+                    <div class="selected-indicator">
+                        <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
+                            <i class="fas fa-check text-white text-xs"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 微信支付 -->
+            <div class="payment-option p-3 mb-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="bg-green-50 p-2 rounded-md">
+                            <i class="fab fa-weixin text-green-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-medium">微信支付</div>
+                        </div>
+                    </div>
+                    <div class="selected-indicator">
+                        <div class="w-5 h-5 border border-gray-300 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 支付宝 -->
+            <div class="payment-option p-3">
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center">
+                        <div class="bg-blue-50 p-2 rounded-md">
+                            <i class="fab fa-alipay text-blue-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-medium">支付宝</div>
+                        </div>
+                    </div>
+                    <div class="selected-indicator">
+                        <div class="w-5 h-5 border border-gray-300 rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 兑换码 -->
+        <div class="discount-code bg-white p-4 mt-2">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <i class="fas fa-ticket-alt text-yellow-500 mr-2"></i>
+                    <span>使用兑换码</span>
+                </div>
+                <i class="fas fa-chevron-right text-gray-400"></i>
+            </div>
+        </div>
+        
+        <!-- 协议 -->
+        <div class="agreement bg-white p-4 mt-2 mb-24">
+            <div class="flex items-center">
+                <input type="checkbox" id="agree-payment" class="mr-2" checked>
+                <label for="agree-payment" class="text-sm text-gray-700">
+                    我已阅读并同意《支付服务协议》《隐私政策》
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部支付栏 -->
+    <div class="bottom-bar fixed bottom-0 left-0 right-0 bg-white px-4 py-3 flex justify-between items-center shadow-lg">
+        <div class="price">
+            <div class="text-sm text-gray-500">实付金额</div>
+            <div class="text-red-500 font-bold text-lg">¥500.00</div>
+        </div>
+        <a href="payment_success.html" class="bg-blue-500 text-white px-8 py-2 rounded-full text-sm font-medium">
+            确认支付
+        </a>
+    </div>
+    
+    <script>
+        // 简单的支付方式选择交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // 移除所有选中状态
+                    paymentOptions.forEach(opt => {
+                        opt.classList.remove('selected');
+                        const indicator = opt.querySelector('.selected-indicator div');
+                        indicator.className = 'w-5 h-5 border border-gray-300 rounded-full';
+                    });
+                    
+                    // 添加选中状态
+                    this.classList.add('selected');
+                    const indicator = this.querySelector('.selected-indicator div');
+                    indicator.className = 'w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center';
+                    indicator.innerHTML = '<i class="fas fa-check text-white text-xs"></i>';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

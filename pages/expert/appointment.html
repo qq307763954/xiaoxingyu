@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>预约咨询 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+            background-color: #f8fafc;
+            color: black;
+        }
+        .expert-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+        }
+        .expert-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 16px;
+        }
+        .date-option {
+            background-color: white;
+            border-radius: 12px;
+            padding: 12px;
+            margin-right: 10px;
+            min-width: 70px;
+            text-align: center;
+            border: 1px solid #E5E7EB;
+            cursor: pointer;
+        }
+        .date-option.active {
+            background-color: #EFF6FF;
+            border-color: #3B82F6;
+            color: #3B82F6;
+        }
+        .time-slot {
+            background-color: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #E5E7EB;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .time-slot.active {
+            background-color: #EFF6FF;
+            border-color: #3B82F6;
+            color: #3B82F6;
+        }
+        .time-slot.unavailable {
+            background-color: #F3F4F6;
+            color: #9CA3AF;
+            cursor: not-allowed;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #1F2937;
+        }
+        .section-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .btn-primary {
+            background-color: #3B82F6;
+            color: white;
+            border-radius: 12px;
+            padding: 14px;
+            width: 100%;
+            font-weight: 500;
+            margin-top: 20px;
+        }
+        .btn-primary:disabled {
+            background-color: #9CA3AF;
+            cursor: not-allowed;
+        }
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            color: #4B5563;
+        }
+        .summary-item .value {
+            font-weight: 500;
+            color: #1F2937;
+        }
+        .return-link {
+            display: flex;
+            align-items: center;
+            color: #6B7280;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .tag {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            margin-right: 6px;
+            background-color: #EFF6FF;
+            color: #3B82F6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 内容区域 -->
+    <div class="flex-1 overflow-auto">
+        <div class="px-4 py-4">
+            <a href="../tabs/expert.html" class="return-link">
+                <i class="fas fa-chevron-left mr-2"></i> 返回专家页面
+            </a>
+            
+            <h1 class="text-2xl font-bold mb-4">预约咨询</h1>
+            
+            <div class="section-card">
+                <h2 class="section-title">选择心理医生</h2>
+                
+                <div class="expert-card selected-expert" data-expert-id="1">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="张医生" class="expert-avatar">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="font-medium text-lg">张医生</h3>
+                            <div class="text-yellow-500">
+                                <i class="fas fa-star"></i>
+                                <span class="text-gray-700">4.9</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-500 text-sm mb-2">心理咨询师 | 情绪管理专家</p>
+                        <div class="flex">
+                            <span class="tag">情绪管理</span>
+                            <span class="tag">焦虑缓解</span>
+                            <span class="tag">人际关系</span>
+                        </div>
+                    </div>
+                    <i class="fas fa-check-circle text-green-500 ml-2"></i>
+                </div>
+                
+                <a href="consultant_list.html" class="text-blue-500 text-sm flex items-center justify-center">
+                    查看更多专家 <i class="fas fa-chevron-right ml-1 text-xs"></i>
+                </a>
+            </div>
+            
+            <div class="section-card">
+                <h2 class="section-title">选择日期</h2>
+                
+                <div class="overflow-x-auto">
+                    <div class="flex pb-2" id="dateContainer">
+                        <!-- 日期选项将由JavaScript生成 -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h2 class="section-title">选择时间段</h2>
+                
+                <div class="flex flex-wrap" id="timeSlotContainer">
+                    <!-- 时间段选项将由JavaScript生成 -->
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h2 class="section-title">咨询类型</h2>
+                
+                <div class="flex items-center mb-4">
+                    <input type="radio" id="videoCall" name="consultationType" value="video" checked class="mr-2">
+                    <label for="videoCall" class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-video text-blue-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium">视频咨询</div>
+                            <div class="text-sm text-gray-500">面对面交流，建立更好的沟通</div>
+                        </div>
+                    </label>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="radio" id="audioCall" name="consultationType" value="audio" class="mr-2">
+                    <label for="audioCall" class="flex items-center">
+                        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                            <i class="fas fa-phone-alt text-blue-500"></i>
+                        </div>
+                        <div>
+                            <div class="font-medium">语音咨询</div>
+                            <div class="text-sm text-gray-500">更为私密，适合不方便视频的场景</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="section-card">
+                <h2 class="section-title">预约摘要</h2>
+                
+                <div class="summary-item">
+                    <span>医生</span>
+                    <span class="value">张医生</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span>日期</span>
+                    <span class="value" id="selectedDateSummary">请选择日期</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span>时间</span>
+                    <span class="value" id="selectedTimeSummary">请选择时间</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span>咨询方式</span>
+                    <span class="value" id="consultationTypeSummary">视频咨询</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span>时长</span>
+                    <span class="value">45分钟</span>
+                </div>
+                
+                <div class="summary-item">
+                    <span>费用</span>
+                    <span class="value">¥299.00</span>
+                </div>
+                
+                <button class="btn-primary" id="confirmBtn" disabled>
+                    确认预约
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 显示当前时间
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+        
+        // 生成未来7天日期选项
+        function generateDateOptions() {
+            const dateContainer = document.getElementById('dateContainer');
+            const today = new Date();
+            const days = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+            
+            for (let i = 0; i < 7; i++) {
+                const date = new Date();
+                date.setDate(today.getDate() + i);
+                
+                const day = date.getDate();
+                const month = date.getMonth() + 1;
+                const weekday = days[date.getDay()];
+                
+                const dateOption = document.createElement('div');
+                dateOption.className = 'date-option' + (i === 0 ? ' active' : '');
+                dateOption.setAttribute('data-date', `${month}月${day}日`);
+                
+                dateOption.innerHTML = `
+                    <div class="text-sm ${i === 0 ? 'text-blue-500' : 'text-gray-500'}">${weekday}</div>
+                    <div class="font-medium ${i === 0 ? 'text-blue-500' : ''}">${month}/${day}</div>
+                `;
+                
+                dateOption.addEventListener('click', function() {
+                    // 移除其他选项的活动状态
+                    document.querySelectorAll('.date-option').forEach(option => {
+                        option.classList.remove('active');
+                        const weekdayEl = option.querySelector('.text-sm');
+                        const dateEl = option.querySelector('.font-medium');
+                        
+                        weekdayEl.classList.remove('text-blue-500');
+                        weekdayEl.classList.add('text-gray-500');
+                        dateEl.classList.remove('text-blue-500');
+                    });
+                    
+                    // 添加当前选项的活动状态
+                    this.classList.add('active');
+                    const weekdayEl = this.querySelector('.text-sm');
+                    const dateEl = this.querySelector('.font-medium');
+                    
+                    weekdayEl.classList.remove('text-gray-500');
+                    weekdayEl.classList.add('text-blue-500');
+                    dateEl.classList.add('text-blue-500');
+                    
+                    // 更新摘要信息
+                    document.getElementById('selectedDateSummary').textContent = this.getAttribute('data-date');
+                    
+                    // 刷新时间段选项
+                    generateTimeSlots();
+                    
+                    // 检查确认按钮状态
+                    checkConfirmButton();
+                });
+                
+                dateContainer.appendChild(dateOption);
+            }
+            
+            // 默认选中第一个日期
+            if (document.querySelector('.date-option.active')) {
+                document.getElementById('selectedDateSummary').textContent = document.querySelector('.date-option.active').getAttribute('data-date');
+            }
+        }
+        
+        // 生成时间段选项
+        function generateTimeSlots() {
+            const timeSlotContainer = document.getElementById('timeSlotContainer');
+            timeSlotContainer.innerHTML = '';
+            
+            // 模拟一些可用和不可用的时间段
+            const slots = [
+                { time: '09:00', available: true },
+                { time: '10:00', available: false },
+                { time: '11:00', available: true },
+                { time: '12:00', available: false },
+                { time: '13:00', available: false },
+                { time: '14:00', available: true },
+                { time: '15:00', available: true },
+                { time: '16:00', available: true },
+                { time: '17:00', available: false },
+                { time: '18:00', available: true },
+                { time: '19:00', available: true },
+                { time: '20:00', available: false }
+            ];
+            
+            // 如果选择的是今天，则过滤掉已经过去的时间段
+            const selectedDate = document.querySelector('.date-option.active');
+            if (selectedDate && selectedDate.getAttribute('data-date').includes('今天')) {
+                const currentHour = new Date().getHours();
+                slots.forEach(slot => {
+                    const slotHour = parseInt(slot.time.split(':')[0]);
+                    if (slotHour <= currentHour) {
+                        slot.available = false;
+                    }
+                });
+            }
+            
+            // 随机为不同日期生成不同的可用时间
+            if (Math.random() > 0.5) {
+                slots.forEach(slot => {
+                    if (Math.random() > 0.5) {
+                        slot.available = !slot.available;
+                    }
+                });
+            }
+            
+            // 创建时间段元素
+            slots.forEach(slot => {
+                const timeSlot = document.createElement('div');
+                timeSlot.className = slot.available ? 'time-slot' : 'time-slot unavailable';
+                timeSlot.textContent = slot.time;
+                
+                if (slot.available) {
+                    timeSlot.addEventListener('click', function() {
+                        // 移除其他时间段的活动状态
+                        document.querySelectorAll('.time-slot').forEach(ts => {
+                            ts.classList.remove('active');
+                        });
+                        
+                        // 添加当前时间段的活动状态
+                        this.classList.add('active');
+                        
+                        // 更新摘要信息
+                        document.getElementById('selectedTimeSummary').textContent = this.textContent;
+                        
+                        // 检查确认按钮状态
+                        checkConfirmButton();
+                    });
+                }
+                
+                timeSlotContainer.appendChild(timeSlot);
+            });
+        }
+        
+        // 检查确认按钮状态
+        function checkConfirmButton() {
+            const selectedDate = document.getElementById('selectedDateSummary').textContent;
+            const selectedTime = document.getElementById('selectedTimeSummary').textContent;
+            
+            const confirmBtn = document.getElementById('confirmBtn');
+            
+            if (selectedDate !== '请选择日期' && selectedTime !== '请选择时间') {
+                confirmBtn.disabled = false;
+            } else {
+                confirmBtn.disabled = true;
+            }
+        }
+        
+        // 更新咨询类型摘要
+        function updateConsultationTypeSummary() {
+            const videoOption = document.getElementById('videoCall');
+            const consultationTypeSummary = document.getElementById('consultationTypeSummary');
+            
+            consultationTypeSummary.textContent = videoOption.checked ? '视频咨询' : '语音咨询';
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新状态栏时间
+            updateTime();
+            setInterval(updateTime, 60000); // 每分钟更新一次
+            
+            // 生成日期和时间段选项
+            generateDateOptions();
+            generateTimeSlots();
+            
+            // 咨询类型选择事件
+            const consultationTypeOptions = document.querySelectorAll('input[name="consultationType"]');
+            consultationTypeOptions.forEach(option => {
+                option.addEventListener('change', updateConsultationTypeSummary);
+            });
+            
+            // 确认预约按钮点击事件
+            const confirmBtn = document.getElementById('confirmBtn');
+            confirmBtn.addEventListener('click', function() {
+                if (!this.disabled) {
+                    alert('预约成功！您已预约张医生于' + 
+                          document.getElementById('selectedDateSummary').textContent + ' ' + 
+                          document.getElementById('selectedTimeSummary').textContent + 
+                          '的' + document.getElementById('consultationTypeSummary').textContent);
+                          
+                    // 在实际应用中，这里应该发送请求到服务器保存预约信息，然后重定向到预约成功页面
+                    window.location.href = '../tabs/expert.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

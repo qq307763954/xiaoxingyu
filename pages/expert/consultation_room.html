@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>咨询室 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 180px);
+            background-color: #111827;
+            overflow: hidden;
+        }
+        .doctor-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .self-video {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 150px;
+            border-radius: 12px;
+            overflow: hidden;
+            z-index: 10;
+            border: 2px solid white;
+        }
+        .self-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .control-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 16px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+        .mic-btn {
+            background-color: #3B82F6;
+        }
+        .video-btn {
+            background-color: #3B82F6;
+        }
+        .switch-btn {
+            background-color: #4B5563;
+        }
+        .end-btn {
+            background-color: #EF4444;
+        }
+        .chat-container {
+            position: absolute;
+            bottom: 100px;
+            left: 12px;
+            right: 12px;
+            max-height: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            padding: 16px;
+            overflow-y: auto;
+            display: none;
+        }
+        .chat-message {
+            margin-bottom: 12px;
+            display: flex;
+        }
+        .chat-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #3B82F6;
+            margin-right: 8px;
+            flex-shrink: 0;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-bubble {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 16px;
+            color: white;
+            font-size: 14px;
+            max-width: 80%;
+        }
+        .chat-footer {
+            display: flex;
+            align-items: center;
+            margin-top: 12px;
+        }
+        .chat-input {
+            flex: 1;
+            border-radius: 20px;
+            padding: 8px 16px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+        }
+        .send-btn {
+            margin-left: 8px;
+            color: #3B82F6;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .timer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .connection-status {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(16, 185, 129, 0.5);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .muted-indicator {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background-color: rgba(239, 68, 68, 0.5);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            display: none;
+        }
+        .chat-toggle {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .joining-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #111827;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+        }
+        .joining-screen h2 {
+            margin-bottom: 16px;
+        }
+        .joining-screen .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #3B82F6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .doctor-info {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .doctor-info img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 视频区域 -->
+    <div class="video-container">
+        <video class="doctor-video" id="doctorVideo" autoplay muted loop>
+            <source src="../../assets/doctor_placeholder.mp4" type="video/mp4">
+        </video>
+        
+        <div class="self-video">
+            <video id="selfVideo" autoplay muted loop>
+                <source src="../../assets/self_placeholder.mp4" type="video/mp4">
+            </video>
+        </div>
+        
+        <div class="timer" id="timer">00:45:12</div>
+        <div class="connection-status" id="connectionStatus">连接良好</div>
+        <div class="muted-indicator" id="mutedIndicator">已静音</div>
+        
+        <button class="chat-toggle" id="chatToggle">
+            <i class="fas fa-comment-alt"></i>
+        </button>
+        
+        <!-- 聊天区域 -->
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-message">
+                <div class="chat-avatar">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="chat-bubble">
+                    您好，我是张医生。很高兴能够为您提供心理咨询服务。请问您今天想聊些什么呢？
+                </div>
+            </div>
+            
+            <div class="chat-message">
+                <div class="chat-avatar" style="background-color: #10B981;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="chat-bubble">
+                    医生您好，我最近感到很焦虑，总是担心各种事情，晚上也很难入睡。
+                </div>
+            </div>
+            
+            <div class="chat-message">
+                <div class="chat-avatar">
+                    <i class="fas fa-user-md"></i>
+                </div>
+                <div class="chat-bubble">
+                    了解了。您能描述一下是什么时候开始出现这些症状的吗？是否有特定的事件触发了这种感受？
+                </div>
+            </div>
+            
+            <div class="chat-footer">
+                <input type="text" class="chat-input" placeholder="输入消息...">
+                <button class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 连接中界面 -->
+        <div class="joining-screen" id="joiningScreen">
+            <div class="spinner"></div>
+            <h2 class="mt-4">正在连接咨询室...</h2>
+            <p class="text-gray-400">请稍候，医生即将加入</p>
+            
+            <div class="doctor-info">
+                <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="张医生" onerror="this.src='https://via.placeholder.com/80'">
+                <h3>张医生</h3>
+                <p class="text-sm text-gray-400">心理咨询师 | 资深心理治疗师</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 控制栏 -->
+    <div class="control-bar">
+        <button class="control-btn mic-btn" id="micBtn">
+            <i class="fas fa-microphone"></i>
+        </button>
+        <button class="control-btn video-btn" id="videoBtn">
+            <i class="fas fa-video"></i>
+        </button>
+        <button class="control-btn switch-btn" id="switchBtn">
+            <i class="fas fa-exchange-alt"></i>
+        </button>
+        <button class="control-btn end-btn" id="endBtn">
+            <i class="fas fa-phone-slash"></i>
+        </button>
+    </div>
+    
+    <script>
+        // 计时器功能
+        function updateTimer() {
+            let seconds = 0;
+            setInterval(() => {
+                seconds++;
+                const hours = Math.floor(seconds / 3600).toString().padStart(2, '0');
+                const minutes = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+                const secs = (seconds % 60).toString().padStart(2, '0');
+                document.getElementById('timer').textContent = `${hours}:${minutes}:${secs}`;
+            }, 1000);
+        }
+        
+        // 显示当前时间
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+        
+        // 点击事件处理
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTime();
+            setInterval(updateTime, 60000); // 每分钟更新一次
+            
+            // 3秒后隐藏连接中界面
+            setTimeout(() => {
+                document.getElementById('joiningScreen').style.display = 'none';
+                updateTimer();
+            }, 3000);
+            
+            // 麦克风按钮
+            const micBtn = document.getElementById('micBtn');
+            const mutedIndicator = document.getElementById('mutedIndicator');
+            let micMuted = false;
+            
+            micBtn.addEventListener('click', () => {
+                micMuted = !micMuted;
+                if (micMuted) {
+                    micBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
+                    micBtn.style.backgroundColor = '#4B5563';
+                    mutedIndicator.style.display = 'block';
+                } else {
+                    micBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+                    micBtn.style.backgroundColor = '#3B82F6';
+                    mutedIndicator.style.display = 'none';
+                }
+            });
+            
+            // 视频按钮
+            const videoBtn = document.getElementById('videoBtn');
+            let videoMuted = false;
+            
+            videoBtn.addEventListener('click', () => {
+                videoMuted = !videoMuted;
+                if (videoMuted) {
+                    videoBtn.innerHTML = '<i class="fas fa-video-slash"></i>';
+                    videoBtn.style.backgroundColor = '#4B5563';
+                    document.getElementById('selfVideo').style.display = 'none';
+                } else {
+                    videoBtn.innerHTML = '<i class="fas fa-video"></i>';
+                    videoBtn.style.backgroundColor = '#3B82F6';
+                    document.getElementById('selfVideo').style.display = 'block';
+                }
+            });
+            
+            // 切换摄像头按钮
+            const switchBtn = document.getElementById('switchBtn');
+            switchBtn.addEventListener('click', () => {
+                // 模拟切换摄像头
+                const toast = document.createElement('div');
+                toast.className = 'fixed top-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white py-2 px-4 rounded-full text-sm';
+                toast.textContent = '已切换至前置摄像头';
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.5s';
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 500);
+                }, 2000);
+            });
+            
+            // 结束通话按钮
+            const endBtn = document.getElementById('endBtn');
+            endBtn.addEventListener('click', () => {
+                window.location.href = '../expert/call_summary.html';
+            });
+            
+            // 聊天切换按钮
+            const chatToggle = document.getElementById('chatToggle');
+            const chatContainer = document.getElementById('chatContainer');
+            let chatVisible = false;
+            
+            chatToggle.addEventListener('click', () => {
+                chatVisible = !chatVisible;
+                if (chatVisible) {
+                    chatContainer.style.display = 'block';
+                } else {
+                    chatContainer.style.display = 'none';
+                }
+            });
+            
+            // 发送消息
+            const sendBtn = document.querySelector('.send-btn');
+            const chatInput = document.querySelector('.chat-input');
+            
+            sendBtn.addEventListener('click', () => {
+                const message = chatInput.value.trim();
+                if (message) {
+                    const chatMessage = document.createElement('div');
+                    chatMessage.className = 'chat-message';
+                    chatMessage.innerHTML = `
+                        <div class="chat-avatar" style="background-color: #10B981;">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="chat-bubble">
+                            ${message}
+                        </div>
+                    `;
+                    
+                    chatContainer.insertBefore(chatMessage, document.querySelector('.chat-footer'));
+                    chatInput.value = '';
+                    
+                    // 自动回复（模拟医生）
+                    setTimeout(() => {
+                        const replyMessage = document.createElement('div');
+                        replyMessage.className = 'chat-message';
+                        replyMessage.innerHTML = `
+                            <div class="chat-avatar">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="chat-bubble">
+                                谢谢您的分享。让我们一起探讨这个问题，找到合适的解决方案。
+                            </div>
+                        `;
+                        
+                        chatContainer.insertBefore(replyMessage, document.querySelector('.chat-footer'));
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    }, 2000);
+                    
+                    chatContainer.scrollTop = chatContainer.scrollHeight;
+                }
+            });
+            
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendBtn.click();
+                }
+            });
+            
+            // 模拟网络状态变化
+            setInterval(() => {
+                const connectionStatus = document.getElementById('connectionStatus');
+                const statuses = [
+                    {text: '连接良好', color: 'rgba(16, 185, 129, 0.5)'},
+                    {text: '连接稳定', color: 'rgba(16, 185, 129, 0.5)'},
+                    {text: '网络波动', color: 'rgba(245, 158, 11, 0.5)'}
+                ];
+                
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                connectionStatus.textContent = randomStatus.text;
+                connectionStatus.style.backgroundColor = randomStatus.color;
+            }, 30000);
+        });
+    </script>
+</body>
+</html>

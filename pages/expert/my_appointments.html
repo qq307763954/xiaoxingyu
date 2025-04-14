@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的预约 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+        }
+        .tab-item {
+            padding-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .tab-item.active {
+            color: #3b82f6;
+            font-weight: 500;
+            border-bottom: 2px solid #3b82f6;
+        }
+        .appointment-status {
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+        }
+        .status-pending {
+            background-color: #ffe9cc;
+            color: #ff9500;
+        }
+        .status-ongoing {
+            background-color: #e0f2ff;
+            color: #0080ff;
+        }
+        .status-completed {
+            background-color: #e0f7e9;
+            color: #36b366;
+        }
+        .status-cancelled {
+            background-color: #f2f2f7;
+            color: #8e8e93;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="title-bar bg-white flex justify-between items-center px-4 py-3">
+        <a href="../expert/expert.html" class="text-blue-500">
+            <i class="fas fa-chevron-left"></i>
+        </a>
+        <div class="title font-medium">我的预约</div>
+        <div class="w-5"></div>
+    </div>
+    
+    <!-- 选项卡 -->
+    <div class="tabs bg-white flex justify-around text-gray-600">
+        <div class="tab-item active flex-1 text-center py-3" data-tab="all">全部</div>
+        <div class="tab-item flex-1 text-center py-3" data-tab="pending">待进行</div>
+        <div class="tab-item flex-1 text-center py-3" data-tab="completed">已完成</div>
+        <div class="tab-item flex-1 text-center py-3" data-tab="cancelled">已取消</div>
+    </div>
+    
+    <!-- 预约列表 -->
+    <div class="appointment-list flex-1 overflow-y-auto p-4 space-y-4">
+        <!-- 待进行的预约 -->
+        <div class="appointment-card bg-white rounded-lg overflow-hidden shadow-sm" data-status="pending">
+            <div class="card-header bg-blue-50 flex justify-between items-center p-4 border-b border-gray-100">
+                <div class="consultant-info flex items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="张医生" class="w-10 h-10 rounded-full object-cover">
+                    <div class="ml-3">
+                        <div class="name font-medium">张医生</div>
+                        <div class="specialty text-xs text-gray-500">心理咨询师 · 10年经验</div>
+                    </div>
+                </div>
+                <div class="appointment-status status-pending">待进行</div>
+            </div>
+            <div class="card-body p-4">
+                <div class="appointment-time flex items-center text-gray-600 mb-3">
+                    <i class="far fa-clock mr-2"></i>
+                    <span>2023年11月15日 14:30-15:30</span>
+                </div>
+                <div class="appointment-type flex items-center text-gray-600 mb-3">
+                    <i class="fas fa-video mr-2"></i>
+                    <span>视频咨询</span>
+                </div>
+                <div class="appointment-details flex items-center text-gray-600">
+                    <i class="far fa-file-alt mr-2"></i>
+                    <span>首次心理咨询</span>
+                </div>
+            </div>
+            <div class="card-footer flex justify-between p-4 border-t border-gray-100">
+                <a href="tel:400-800-8888" class="text-gray-600 flex items-center">
+                    <i class="fas fa-phone-alt mr-1"></i>
+                    <span>联系客服</span>
+                </a>
+                <div class="actions flex space-x-3">
+                    <button class="px-4 py-1 border border-gray-300 rounded-full text-gray-600 text-sm">取消预约</button>
+                    <button class="px-4 py-1 bg-blue-500 text-white rounded-full text-sm">进入咨询</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 进行中的预约 -->
+        <div class="appointment-card bg-white rounded-lg overflow-hidden shadow-sm" data-status="ongoing">
+            <div class="card-header bg-blue-50 flex justify-between items-center p-4 border-b border-gray-100">
+                <div class="consultant-info flex items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="李医生" class="w-10 h-10 rounded-full object-cover">
+                    <div class="ml-3">
+                        <div class="name font-medium">李医生</div>
+                        <div class="specialty text-xs text-gray-500">精神科医生 · 8年经验</div>
+                    </div>
+                </div>
+                <div class="appointment-status status-ongoing">进行中</div>
+            </div>
+            <div class="card-body p-4">
+                <div class="appointment-time flex items-center text-gray-600 mb-3">
+                    <i class="far fa-clock mr-2"></i>
+                    <span>2023年11月10日 10:00-11:00</span>
+                </div>
+                <div class="appointment-type flex items-center text-gray-600 mb-3">
+                    <i class="fas fa-video mr-2"></i>
+                    <span>视频咨询</span>
+                </div>
+                <div class="appointment-details flex items-center text-gray-600">
+                    <i class="far fa-file-alt mr-2"></i>
+                    <span>睡眠问题咨询</span>
+                </div>
+            </div>
+            <div class="card-footer flex justify-between p-4 border-t border-gray-100">
+                <a href="tel:400-800-8888" class="text-gray-600 flex items-center">
+                    <i class="fas fa-phone-alt mr-1"></i>
+                    <span>联系客服</span>
+                </a>
+                <div class="actions flex">
+                    <button class="px-4 py-1 bg-blue-500 text-white rounded-full text-sm">继续咨询</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 已完成的预约 -->
+        <div class="appointment-card bg-white rounded-lg overflow-hidden shadow-sm" data-status="completed">
+            <div class="card-header bg-gray-50 flex justify-between items-center p-4 border-b border-gray-100">
+                <div class="consultant-info flex items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="王医生" class="w-10 h-10 rounded-full object-cover">
+                    <div class="ml-3">
+                        <div class="name font-medium">王医生</div>
+                        <div class="specialty text-xs text-gray-500">心理咨询师 · 12年经验</div>
+                    </div>
+                </div>
+                <div class="appointment-status status-completed">已完成</div>
+            </div>
+            <div class="card-body p-4">
+                <div class="appointment-time flex items-center text-gray-600 mb-3">
+                    <i class="far fa-clock mr-2"></i>
+                    <span>2023年10月25日 16:00-17:00</span>
+                </div>
+                <div class="appointment-type flex items-center text-gray-600 mb-3">
+                    <i class="fas fa-video mr-2"></i>
+                    <span>视频咨询</span>
+                </div>
+                <div class="appointment-details flex items-center text-gray-600 mb-3">
+                    <i class="far fa-file-alt mr-2"></i>
+                    <span>焦虑情绪咨询</span>
+                </div>
+                <div class="rating flex items-center">
+                    <span class="text-gray-600 mr-2">评分：</span>
+                    <div class="stars text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer flex justify-between p-4 border-t border-gray-100">
+                <button class="text-gray-600 flex items-center">
+                    <i class="far fa-file-alt mr-1"></i>
+                    <span>查看记录</span>
+                </button>
+                <div class="actions flex">
+                    <button class="px-4 py-1 border border-blue-500 text-blue-500 rounded-full text-sm">再次预约</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 已取消的预约 -->
+        <div class="appointment-card bg-white rounded-lg overflow-hidden shadow-sm" data-status="cancelled">
+            <div class="card-header bg-gray-50 flex justify-between items-center p-4 border-b border-gray-100">
+                <div class="consultant-info flex items-center">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="刘医生" class="w-10 h-10 rounded-full object-cover">
+                    <div class="ml-3">
+                        <div class="name font-medium">刘医生</div>
+                        <div class="specialty text-xs text-gray-500">心理咨询师 · 7年经验</div>
+                    </div>
+                </div>
+                <div class="appointment-status status-cancelled">已取消</div>
+            </div>
+            <div class="card-body p-4">
+                <div class="appointment-time flex items-center text-gray-600 mb-3">
+                    <i class="far fa-clock mr-2"></i>
+                    <span>2023年10月20日 09:30-10:30</span>
+                </div>
+                <div class="appointment-type flex items-center text-gray-600 mb-3">
+                    <i class="fas fa-video mr-2"></i>
+                    <span>视频咨询</span>
+                </div>
+                <div class="appointment-details flex items-center text-gray-600">
+                    <i class="far fa-file-alt mr-2"></i>
+                    <span>亲子关系咨询</span>
+                </div>
+                <div class="cancel-reason mt-3 text-gray-500 text-sm">
+                    <div>取消原因：个人原因，时间冲突</div>
+                    <div>退款状态：已退款至余额</div>
+                </div>
+            </div>
+            <div class="card-footer flex justify-end p-4 border-t border-gray-100">
+                <button class="px-4 py-1 border border-blue-500 text-blue-500 rounded-full text-sm">重新预约</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部导航栏 -->
+    <div class="bottom-nav bg-white border-t border-gray-200 flex justify-around items-center px-2 py-1">
+        <a href="../home/home.html" class="nav-item flex flex-col items-center py-2 text-gray-500">
+            <i class="fas fa-home text-xl"></i>
+            <span class="text-xs mt-1">首页</span>
+        </a>
+        <a href="../report/report.html" class="nav-item flex flex-col items-center py-2 text-gray-500">
+            <i class="fas fa-chart-line text-xl"></i>
+            <span class="text-xs mt-1">报告</span>
+        </a>
+        <a href="../expert/expert.html" class="nav-item flex flex-col items-center py-2 text-blue-500">
+            <i class="fas fa-user-md text-xl"></i>
+            <span class="text-xs mt-1">专家</span>
+        </a>
+        <a href="../system/system.html" class="nav-item flex flex-col items-center py-2 text-gray-500">
+            <i class="fas fa-cog text-xl"></i>
+            <span class="text-xs mt-1">我的</span>
+        </a>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 选项卡切换
+            const tabItems = document.querySelectorAll('.tab-item');
+            const appointmentCards = document.querySelectorAll('.appointment-card');
+            
+            tabItems.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // 移除所有选项卡的激活状态
+                    tabItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    // 激活当前选项卡
+                    this.classList.add('active');
+                    
+                    const tabType = this.getAttribute('data-tab');
+                    
+                    // 过滤预约卡片
+                    appointmentCards.forEach(card => {
+                        const status = card.getAttribute('data-status');
+                        
+                        if (tabType === 'all' || tabType === status) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

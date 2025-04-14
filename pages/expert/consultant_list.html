@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专家列表 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-right: 5px;
+        }
+        .tag-child {
+            background-color: #e3f2fd;
+            color: #1e88e5;
+        }
+        .tag-teen {
+            background-color: #f3e5f5;
+            color: #9c27b0;
+        }
+        .tag-family {
+            background-color: #e8f5e9;
+            color: #43a047;
+        }
+        .tag-depression {
+            background-color: #fffde7;
+            color: #fbc02d;
+        }
+        .tag-anxiety {
+            background-color: #fff3e0;
+            color: #fb8c00;
+        }
+        .star-rating {
+            color: #ffc107;
+        }
+        .filter-item.active {
+            color: #1e88e5;
+            border-bottom: 2px solid #1e88e5;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="title-bar bg-white flex justify-between items-center px-4 py-3 shadow-sm">
+        <a href="../main/expert.html" class="back-button">
+            <i class="fas fa-chevron-left text-blue-500"></i>
+        </a>
+        <div class="title font-bold">心理专家</div>
+        <div class="search-button">
+            <i class="fas fa-search text-blue-500"></i>
+        </div>
+    </div>
+    
+    <!-- 筛选栏 -->
+    <div class="filter-bar bg-white overflow-x-auto whitespace-nowrap py-3 px-2 shadow-sm mb-2">
+        <div class="filter-options flex">
+            <div class="filter-item active px-4 py-1 text-sm font-medium">
+                全部专家
+            </div>
+            <div class="filter-item px-4 py-1 text-sm text-gray-500">
+                儿童心理
+            </div>
+            <div class="filter-item px-4 py-1 text-sm text-gray-500">
+                青少年心理
+            </div>
+            <div class="filter-item px-4 py-1 text-sm text-gray-500">
+                家庭关系
+            </div>
+            <div class="filter-item px-4 py-1 text-sm text-gray-500">
+                抑郁症
+            </div>
+            <div class="filter-item px-4 py-1 text-sm text-gray-500">
+                焦虑症
+            </div>
+            <div class="filter-item px-4 py-1 text-sm text-gray-500">
+                情绪管理
+            </div>
+        </div>
+    </div>
+    
+    <!-- 高级筛选 -->
+    <div class="advanced-filter bg-white px-4 py-3 mb-2 flex justify-between text-sm">
+        <div class="filter-by flex items-center space-x-4">
+            <div class="filter-option flex items-center">
+                <span>排序</span>
+                <i class="fas fa-chevron-down ml-1 text-xs text-gray-500"></i>
+            </div>
+            <div class="filter-option flex items-center">
+                <span>价格</span>
+                <i class="fas fa-chevron-down ml-1 text-xs text-gray-500"></i>
+            </div>
+        </div>
+        <div class="filter-action flex items-center text-blue-500">
+            <i class="fas fa-sliders-h mr-1"></i>
+            <span>筛选</span>
+        </div>
+    </div>
+    
+    <!-- 专家列表 -->
+    <div class="expert-list flex-1 overflow-y-auto pb-4">
+        <!-- 专家1 -->
+        <a href="consultant_detail.html" class="expert-card bg-white mb-2 p-4 block">
+            <div class="flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="李明" class="w-16 h-16 rounded-lg object-cover">
+                <div class="expert-info ml-3 flex-1">
+                    <div class="flex justify-between items-start">
+                        <div class="name-title">
+                            <h3 class="text-base font-bold">李明 教授</h3>
+                            <p class="text-sm text-gray-600">北京大学第六医院</p>
+                        </div>
+                        <div class="status text-green-500 text-sm">
+                            可预约
+                        </div>
+                    </div>
+                    <div class="ratings flex items-center mt-1">
+                        <div class="star-rating text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-1">4.8 (136条评价)</span>
+                    </div>
+                    <div class="tags mt-2">
+                        <span class="tag tag-child">儿童心理</span>
+                        <span class="tag tag-anxiety">焦虑症</span>
+                        <span class="tag tag-depression">抑郁症</span>
+                    </div>
+                </div>
+            </div>
+            <div class="expert-bottom mt-3 flex justify-between items-center">
+                <div class="price text-sm">
+                    <span class="text-red-500 font-bold">¥500</span>
+                    <span class="text-gray-500">/次 (50分钟)</span>
+                </div>
+                <button class="book-btn bg-blue-500 text-white text-sm py-1 px-4 rounded-full">
+                    立即预约
+                </button>
+            </div>
+        </a>
+        
+        <!-- 专家2 -->
+        <a href="consultant_detail.html" class="expert-card bg-white mb-2 p-4 block">
+            <div class="flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" alt="张婷" class="w-16 h-16 rounded-lg object-cover">
+                <div class="expert-info ml-3 flex-1">
+                    <div class="flex justify-between items-start">
+                        <div class="name-title">
+                            <h3 class="text-base font-bold">张婷 副教授</h3>
+                            <p class="text-sm text-gray-600">上海交通大学医学院附属精神卫生中心</p>
+                        </div>
+                        <div class="status text-green-500 text-sm">
+                            可预约
+                        </div>
+                    </div>
+                    <div class="ratings flex items-center mt-1">
+                        <div class="star-rating text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-1">5.0 (89条评价)</span>
+                    </div>
+                    <div class="tags mt-2">
+                        <span class="tag tag-teen">青少年心理</span>
+                        <span class="tag tag-family">家庭关系</span>
+                    </div>
+                </div>
+            </div>
+            <div class="expert-bottom mt-3 flex justify-between items-center">
+                <div class="price text-sm">
+                    <span class="text-red-500 font-bold">¥450</span>
+                    <span class="text-gray-500">/次 (50分钟)</span>
+                </div>
+                <button class="book-btn bg-blue-500 text-white text-sm py-1 px-4 rounded-full">
+                    立即预约
+                </button>
+            </div>
+        </a>
+        
+        <!-- 专家3 -->
+        <a href="consultant_detail.html" class="expert-card bg-white mb-2 p-4 block">
+            <div class="flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="王建国" class="w-16 h-16 rounded-lg object-cover">
+                <div class="expert-info ml-3 flex-1">
+                    <div class="flex justify-between items-start">
+                        <div class="name-title">
+                            <h3 class="text-base font-bold">王建国 主任医师</h3>
+                            <p class="text-sm text-gray-600">中国医学科学院北京协和医院</p>
+                        </div>
+                        <div class="status text-gray-500 text-sm">
+                            约满
+                        </div>
+                    </div>
+                    <div class="ratings flex items-center mt-1">
+                        <div class="star-rating text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-1">4.0 (215条评价)</span>
+                    </div>
+                    <div class="tags mt-2">
+                        <span class="tag tag-depression">抑郁症</span>
+                        <span class="tag tag-anxiety">焦虑症</span>
+                    </div>
+                </div>
+            </div>
+            <div class="expert-bottom mt-3 flex justify-between items-center">
+                <div class="price text-sm">
+                    <span class="text-red-500 font-bold">¥600</span>
+                    <span class="text-gray-500">/次 (50分钟)</span>
+                </div>
+                <button class="book-btn bg-gray-300 text-gray-600 text-sm py-1 px-4 rounded-full">
+                    预约满额
+                </button>
+            </div>
+        </a>
+        
+        <!-- 专家4 -->
+        <a href="consultant_detail.html" class="expert-card bg-white mb-2 p-4 block">
+            <div class="flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="刘芳" class="w-16 h-16 rounded-lg object-cover">
+                <div class="expert-info ml-3 flex-1">
+                    <div class="flex justify-between items-start">
+                        <div class="name-title">
+                            <h3 class="text-base font-bold">刘芳 心理咨询师</h3>
+                            <p class="text-sm text-gray-600">北京师范大学心理健康中心</p>
+                        </div>
+                        <div class="status text-green-500 text-sm">
+                            可预约
+                        </div>
+                    </div>
+                    <div class="ratings flex items-center mt-1">
+                        <div class="star-rating text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-1">4.7 (58条评价)</span>
+                    </div>
+                    <div class="tags mt-2">
+                        <span class="tag tag-child">儿童心理</span>
+                        <span class="tag tag-family">家庭关系</span>
+                    </div>
+                </div>
+            </div>
+            <div class="expert-bottom mt-3 flex justify-between items-center">
+                <div class="price text-sm">
+                    <span class="text-red-500 font-bold">¥350</span>
+                    <span class="text-gray-500">/次 (50分钟)</span>
+                </div>
+                <button class="book-btn bg-blue-500 text-white text-sm py-1 px-4 rounded-full">
+                    立即预约
+                </button>
+            </div>
+        </a>
+        
+        <!-- 专家5 -->
+        <a href="consultant_detail.html" class="expert-card bg-white mb-2 p-4 block">
+            <div class="flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/3135/3135730.png" alt="林小雨" class="w-16 h-16 rounded-lg object-cover">
+                <div class="expert-info ml-3 flex-1">
+                    <div class="flex justify-between items-start">
+                        <div class="name-title">
+                            <h3 class="text-base font-bold">林小雨 心理治疗师</h3>
+                            <p class="text-sm text-gray-600">广州市妇女儿童医疗中心</p>
+                        </div>
+                        <div class="status text-green-500 text-sm">
+                            可预约
+                        </div>
+                    </div>
+                    <div class="ratings flex items-center mt-1">
+                        <div class="star-rating text-xs">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <span class="text-xs text-gray-500 ml-1">4.2 (43条评价)</span>
+                    </div>
+                    <div class="tags mt-2">
+                        <span class="tag tag-teen">青少年心理</span>
+                        <span class="tag tag-anxiety">焦虑症</span>
+                    </div>
+                </div>
+            </div>
+            <div class="expert-bottom mt-3 flex justify-between items-center">
+                <div class="price text-sm">
+                    <span class="text-red-500 font-bold">¥380</span>
+                    <span class="text-gray-500">/次 (50分钟)</span>
+                </div>
+                <button class="book-btn bg-blue-500 text-white text-sm py-1 px-4 rounded-full">
+                    立即预约
+                </button>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

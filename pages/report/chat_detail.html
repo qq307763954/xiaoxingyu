@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小星语 - 聊天详情</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body class="bg-gray-50 pb-24">
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <div class="flex items-center">
+            <span>9:41</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="bg-white px-4 py-3 flex justify-between items-center shadow-sm">
+        <div class="flex items-center">
+            <a href="../main/report.html" class="mr-4">
+                <i class="fas fa-chevron-left text-gray-500"></i>
+            </a>
+            <h1 class="text-lg font-semibold">聊天详情</h1>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="#" class="text-primary">
+                <i class="fas fa-share-alt"></i>
+            </a>
+            <a href="#" class="text-primary">
+                <i class="fas fa-ellipsis-v"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 聊天信息 -->
+    <div class="bg-white px-4 py-4 shadow-sm mb-4">
+        <div class="flex items-center mb-2">
+            <div class="bg-blue-100 rounded-full w-10 h-10 flex items-center justify-center mr-3">
+                <i class="fas fa-question text-blue-500"></i>
+            </div>
+            <div>
+                <h2 class="font-medium">为什么天空是蓝色的？</h2>
+                <div class="flex items-center text-sm text-gray-500">
+                    <span>2023年8月15日</span>
+                    <span class="mx-2">·</span>
+                    <span>09:15</span>
+                    <span class="mx-2">·</span>
+                    <span class="bg-blue-100 text-blue-500 px-2 py-0.5 rounded text-xs">问答</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-100">
+            <div class="flex items-center">
+                <i class="fas fa-clock text-gray-400 mr-1"></i>
+                <span class="text-sm text-gray-500">持续时间: 3分钟</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-comment-alt text-gray-400 mr-1"></i>
+                <span class="text-sm text-gray-500">对话数: 5条</span>
+            </div>
+            <div class="flex items-center">
+                <i class="fas fa-heart text-gray-400 mr-1"></i>
+                <span class="text-sm text-gray-500">情绪: 好奇</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 对话内容 -->
+    <div class="container mx-auto px-4 py-4">
+        <!-- 时间标记 -->
+        <div class="text-center mb-6">
+            <span class="inline-block bg-gray-200 text-gray-600 text-xs px-3 py-1 rounded-full">9:15 开始对话</span>
+        </div>
+        
+        <!-- 儿童消息 -->
+        <div class="flex mb-4">
+            <div class="w-8 h-8 rounded-full bg-pink-100 flex-shrink-0 flex items-center justify-center mr-2">
+                <span class="text-xs text-pink-500 font-medium">宝</span>
+            </div>
+            <div class="max-w-[80%]">
+                <div class="bg-pink-50 px-4 py-3 rounded-2xl rounded-tl-none">
+                    <p class="text-gray-700">小星语，为什么天空是蓝色的？</p>
+                </div>
+                <span class="text-xs text-gray-400 ml-2 mt-1 inline-block">09:15</span>
+            </div>
+        </div>
+        
+        <!-- 手环回复 -->
+        <div class="flex flex-row-reverse mb-4">
+            <div class="w-8 h-8 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center ml-2">
+                <i class="fas fa-robot text-xs text-blue-500"></i>
+            </div>
+            <div class="max-w-[80%]">
+                <div class="bg-primary px-4 py-3 rounded-2xl rounded-tr-none text-white">
+                    <p>天空是蓝色的是因为阳光中的蓝色光被空气分子散射，而其他颜色的光（如红色和黄色）则直接穿过大气层。</p>
+                </div>
+                <span class="text-xs text-gray-400 mr-2 mt-1 inline-block text-right w-full">09:15 <i class="fas fa-check-double ml-1"></i></span>
+            </div>
+        </div>
+        
+        <!-- 儿童消息 -->
+        <div class="flex mb-4">
+            <div class="w-8 h-8 rounded-full bg-pink-100 flex-shrink-0 flex items-center justify-center mr-2">
+                <span class="text-xs text-pink-500 font-medium">宝</span>
+            </div>
+            <div class="max-w-[80%]">
+                <div class="bg-pink-50 px-4 py-3 rounded-2xl rounded-tl-none">
+                    <p class="text-gray-700">什么是散射？</p>
+                </div>
+                <span class="text-xs text-gray-400 ml-2 mt-1 inline-block">09:16</span>
+            </div>
+        </div>
+        
+        <!-- 手环回复 -->
+        <div class="flex flex-row-reverse mb-4">
+            <div class="w-8 h-8 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center ml-2">
+                <i class="fas fa-robot text-xs text-blue-500"></i>
+            </div>
+            <div class="max-w-[80%]">
+                <div class="bg-primary px-4 py-3 rounded-2xl rounded-tr-none text-white">
+                    <p>散射就像是光线碰到了小球然后弹向四面八方。想象你用手电筒照射一团雾气，光线会被雾气中的小水滴反射，让整个雾气看起来是亮的。空气中的分子就像这些小水滴，让蓝色的光向各个方向散开，所以我们从各个角度看天空都是蓝色的。</p>
+                </div>
+                <span class="text-xs text-gray-400 mr-2 mt-1 inline-block text-right w-full">09:16 <i class="fas fa-check-double ml-1"></i></span>
+            </div>
+        </div>
+        
+        <!-- 儿童消息 -->
+        <div class="flex mb-4">
+            <div class="w-8 h-8 rounded-full bg-pink-100 flex-shrink-0 flex items-center justify-center mr-2">
+                <span class="text-xs text-pink-500 font-medium">宝</span>
+            </div>
+            <div class="max-w-[80%]">
+                <div class="bg-pink-50 px-4 py-3 rounded-2xl rounded-tl-none">
+                    <p class="text-gray-700">那为什么日出和日落的时候天空是红色的呢？</p>
+                </div>
+                <span class="text-xs text-gray-400 ml-2 mt-1 inline-block">09:17</span>
+            </div>
+        </div>
+        
+        <!-- 手环回复 -->
+        <div class="flex flex-row-reverse mb-6">
+            <div class="w-8 h-8 rounded-full bg-blue-100 flex-shrink-0 flex items-center justify-center ml-2">
+                <i class="fas fa-robot text-xs text-blue-500"></i>
+            </div>
+            <div class="max-w-[80%]">
+                <div class="bg-primary px-4 py-3 rounded-2xl rounded-tr-none text-white">
+                    <p>在日出和日落时，阳光需要穿过更厚的大气层才能到达我们的眼睛。这段更长的路径让大部分蓝色光都被散射掉了，只剩下红色和橙色的光能直接到达我们的眼睛，所以天空看起来是红色或橙色的。这就像当光穿过很多灰尘或烟雾时，看起来会变红一样。</p>
+                </div>
+                <span class="text-xs text-gray-400 mr-2 mt-1 inline-block text-right w-full">09:17 <i class="fas fa-check-double ml-1"></i></span>
+                
+                <!-- 语音播放 -->
+                <div class="mt-2 flex justify-end">
+                    <button class="flex items-center bg-white rounded-full px-3 py-1 shadow-sm">
+                        <i class="fas fa-play text-primary mr-2 text-xs"></i>
+                        <span class="text-xs">播放语音</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 时间标记 -->
+        <div class="text-center mb-6">
+            <span class="inline-block bg-gray-200 text-gray-600 text-xs px-3 py-1 rounded-full">9:18 对话结束</span>
+        </div>
+    </div>
+    
+    <!-- 底部操作栏 -->
+    <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 px-4 py-3">
+        <div class="flex space-x-3">
+            <button class="flex-1 bg-white border border-gray-200 text-gray-700 rounded-full py-2 flex items-center justify-center">
+                <i class="fas fa-heart mr-2 text-pink-500"></i>
+                <span class="text-sm">收藏</span>
+            </button>
+            <button class="flex-1 bg-white border border-gray-200 text-gray-700 rounded-full py-2 flex items-center justify-center">
+                <i class="fas fa-download mr-2 text-green-500"></i>
+                <span class="text-sm">下载</span>
+            </button>
+            <button class="flex-1 bg-primary text-white rounded-full py-2 flex items-center justify-center">
+                <i class="fas fa-share-alt mr-2"></i>
+                <span class="text-sm">分享</span>
+            </button>
+        </div>
+    </div>
+    
+    <style>
+        .bg-primary {
+            background-color: var(--primary-color);
+        }
+        .text-primary {
+            color: var(--primary-color);
+        }
+    </style>
+</body>
+</html> 

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付成功 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+        }
+        .step-circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .step-circle.active, .step-circle.completed {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .step-circle.inactive {
+            background-color: #e5e7eb;
+            color: #9ca3af;
+        }
+        .step-line {
+            height: 2px;
+            flex-grow: 1;
+        }
+        .step-line.active {
+            background-color: #3b82f6;
+        }
+        .step-line.inactive {
+            background-color: #e5e7eb;
+        }
+        .success-animation {
+            animation: scale-up 0.5s ease-in-out;
+        }
+        @keyframes scale-up {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="title-bar bg-white flex justify-between items-center px-4 py-3">
+        <a href="../expert/expert.html" class="text-blue-500">
+            <i class="fas fa-times"></i>
+        </a>
+        <div class="title font-medium">订单完成</div>
+        <div class="w-5"></div>
+    </div>
+    
+    <!-- 进度条 -->
+    <div class="stepper bg-white px-6 py-4 flex items-center">
+        <div class="step flex flex-col items-center">
+            <div class="step-circle completed">
+                <i class="fas fa-check text-xs"></i>
+            </div>
+            <div class="text-xs mt-1 text-blue-500">选择专家</div>
+        </div>
+        <div class="step-line active"></div>
+        <div class="step flex flex-col items-center">
+            <div class="step-circle completed">
+                <i class="fas fa-check text-xs"></i>
+            </div>
+            <div class="text-xs mt-1 text-blue-500">填写信息</div>
+        </div>
+        <div class="step-line active"></div>
+        <div class="step flex flex-col items-center">
+            <div class="step-circle completed">
+                <i class="fas fa-check text-xs"></i>
+            </div>
+            <div class="text-xs mt-1 text-blue-500">支付订单</div>
+        </div>
+        <div class="step-line active"></div>
+        <div class="step flex flex-col items-center">
+            <div class="step-circle active">4</div>
+            <div class="text-xs mt-1 text-blue-500">完成预约</div>
+        </div>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="content flex-1 overflow-y-auto">
+        <!-- 支付成功信息 -->
+        <div class="success-info bg-white p-6 mt-2 flex flex-col items-center">
+            <div class="success-icon w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mb-4 success-animation">
+                <i class="fas fa-check text-white text-2xl"></i>
+            </div>
+            <h2 class="text-xl font-bold mb-2">支付成功</h2>
+            <p class="text-gray-500 mb-4">您已成功预约专家咨询服务</p>
+            
+            <div class="w-full border-t border-gray-200 pt-4 mt-2">
+                <div class="flex justify-between mb-3">
+                    <span class="text-gray-600">订单金额</span>
+                    <span class="text-gray-800 font-medium">¥500.00</span>
+                </div>
+                <div class="flex justify-between mb-3">
+                    <span class="text-gray-600">支付方式</span>
+                    <span class="text-gray-800">微信支付</span>
+                </div>
+                <div class="flex justify-between mb-3">
+                    <span class="text-gray-600">交易单号</span>
+                    <span class="text-gray-800">4200001626202310308246235417</span>
+                </div>
+                <div class="flex justify-between mb-3">
+                    <span class="text-gray-600">支付时间</span>
+                    <span class="text-gray-800">2023-10-30 14:30:21</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 温馨提示 -->
+        <div class="tips bg-white p-4 mt-2">
+            <h3 class="font-bold mb-3">温馨提示</h3>
+            <ul class="text-gray-600 text-sm space-y-2">
+                <li class="flex">
+                    <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                    <span>咨询开始前15分钟，系统会通过短信提醒您准时参加。</span>
+                </li>
+                <li class="flex">
+                    <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                    <span>请在预约时间前5分钟做好准备，确保网络环境良好。</span>
+                </li>
+                <li class="flex">
+                    <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                    <span>如需改期或取消，请提前24小时操作，否则将视为已完成服务。</span>
+                </li>
+                <li class="flex">
+                    <i class="fas fa-circle text-blue-500 text-xs mr-2 mt-1"></i>
+                    <span>咨询过程中请保持环境安静，避免干扰。</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 后续步骤 -->
+        <div class="next-steps bg-white p-4 mt-2 mb-6">
+            <h3 class="font-bold mb-3">后续步骤</h3>
+            <div class="steps space-y-4">
+                <div class="step flex">
+                    <div class="step-number bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm mr-3 flex-shrink-0">1</div>
+                    <div>
+                        <div class="font-medium">准备咨询问题</div>
+                        <div class="text-sm text-gray-600">建议提前整理您想咨询的问题，以便高效利用咨询时间。</div>
+                    </div>
+                </div>
+                
+                <div class="step flex">
+                    <div class="step-number bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm mr-3 flex-shrink-0">2</div>
+                    <div>
+                        <div class="font-medium">准时参加咨询</div>
+                        <div class="text-sm text-gray-600">咨询开始前，请进入"我的预约"页面，点击"进入咨询"按钮。</div>
+                    </div>
+                </div>
+                
+                <div class="step flex">
+                    <div class="step-number bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-sm mr-3 flex-shrink-0">3</div>
+                    <div>
+                        <div class="font-medium">咨询后评价</div>
+                        <div class="text-sm text-gray-600">咨询结束后，请对专家服务进行评价，帮助我们提升服务质量。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部按钮 -->
+    <div class="bottom-bar fixed bottom-0 left-0 right-0 bg-white px-4 py-3 flex space-x-4 shadow-lg">
+        <a href="../expert/my_appointments.html" class="flex-1 border border-blue-500 text-blue-500 py-2 rounded-full text-center font-medium">
+            我的预约
+        </a>
+        <a href="../expert/expert.html" class="flex-1 bg-blue-500 text-white py-2 rounded-full text-center font-medium">
+            完成
+        </a>
+    </div>
+    
+    <script>
+        // 简单动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const successIcon = document.querySelector('.success-icon');
+                successIcon.classList.add('success-animation');
+            }, 100);
+        });
+    </script>
+</body>
+</html> 

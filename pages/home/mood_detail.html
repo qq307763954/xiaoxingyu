@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小星语 - 情绪详情</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="../../css/custom.css">
+</head>
+<body class="bg-gray-50 pb-24">
+    <!-- iOS 状态栏 -->
+    <div class="ios-status-bar">
+        <div class="flex items-center">
+            <span>9:41</span>
+        </div>
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 标题栏 -->
+    <div class="bg-white px-4 py-3 flex justify-between items-center shadow-sm">
+        <div class="flex items-center">
+            <a href="../main/home.html" class="mr-4">
+                <i class="fas fa-chevron-left text-gray-500"></i>
+            </a>
+            <h1 class="text-lg font-semibold">宝贝情绪详情</h1>
+        </div>
+        <div class="flex items-center">
+            <a href="#" class="text-primary">
+                <i class="fas fa-share-alt"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- 当前情绪状态 -->
+    <div class="bg-white px-4 py-6 shadow-sm mb-4">
+        <div class="flex items-center justify-center mb-4">
+            <div class="text-center">
+                <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mb-2 mx-auto">
+                    <i class="fas fa-grin-beam text-5xl text-blue-500"></i>
+                </div>
+                <h2 class="text-xl font-semibold">兴奋</h2>
+                <p class="text-sm text-gray-500">更新于 10 分钟前</p>
+            </div>
+        </div>
+        
+        <div class="text-center px-6">
+            <p class="text-gray-700">今天宝贝情绪积极，从平静变得开心，最近检测到兴奋状态，可能需要适度引导。</p>
+        </div>
+    </div>
+    
+    <!-- 情绪变化趋势 -->
+    <div class="card mb-4">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="font-semibold">今日情绪变化</h3>
+            <div class="text-sm">
+                <select class="bg-gray-100 border-0 rounded-md px-2 py-1 text-gray-600">
+                    <option>今天</option>
+                    <option>昨天</option>
+                    <option>本周</option>
+                    <option>本月</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="relative h-56 bg-gray-50 rounded-lg p-4 mb-4">
+            <!-- 情绪曲线图表 -->
+            <div class="absolute inset-0 p-4">
+                <!-- 图表轴线 -->
+                <div class="absolute left-0 bottom-0 w-full h-px bg-gray-200"></div>
+                <div class="absolute left-0 bottom-0 h-full w-px bg-gray-200"></div>
+                
+                <!-- 情绪曲线 (模拟) -->
+                <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M0,70 C10,65 20,40 30,45 C40,50 50,30 60,25 C70,20 80,15 90,10 L90,100 L0,100 Z" fill="rgba(74, 144, 226, 0.1)"></path>
+                    <path d="M0,70 C10,65 20,40 30,45 C40,50 50,30 60,25 C70,20 80,15 90,10" fill="none" stroke="#4A90E2" stroke-width="2" stroke-linecap="round"></path>
+                    
+                    <!-- 情绪点标记 -->
+                    <circle cx="0" cy="70" r="3" fill="white" stroke="#4A90E2" stroke-width="1.5"></circle>
+                    <circle cx="30" cy="45" r="3" fill="white" stroke="#4A90E2" stroke-width="1.5"></circle>
+                    <circle cx="60" cy="25" r="3" fill="white" stroke="#4A90E2" stroke-width="1.5"></circle>
+                    <circle cx="90" cy="10" r="3" fill="white" stroke="#4A90E2" stroke-width="1.5"></circle>
+                </svg>
+                
+                <!-- 时间刻度 -->
+                <div class="absolute bottom-0 left-0 w-full flex justify-between text-xs text-gray-400 transform translate-y-4">
+                    <span>7:00</span>
+                    <span>10:00</span>
+                    <span>13:00</span>
+                    <span>16:00</span>
+                </div>
+                
+                <!-- 情绪刻度 -->
+                <div class="absolute top-0 left-0 h-full flex flex-col justify-between items-start text-xs text-gray-400 transform -translate-x-6">
+                    <span>兴奋</span>
+                    <span>开心</span>
+                    <span>平静</span>
+                    <span>低落</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-sm text-gray-500">
+            <p>通过情绪变化曲线可以看出，宝贝今天情绪总体呈上升趋势，从早晨的平静状态逐渐变得开心，下午达到兴奋状态。</p>
+        </div>
+    </div>
+    
+    <!-- 情绪分析与建议 -->
+    <div class="card mb-4">
+        <h3 class="font-semibold mb-3">情绪分析</h3>
+        
+        <div class="bg-blue-50 rounded-lg p-4 mb-4">
+            <div class="flex items-start">
+                <div class="bg-blue-100 rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <i class="fas fa-lightbulb text-blue-500"></i>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-1">情绪规律</h4>
+                    <p class="text-sm text-gray-600">宝贝的情绪通常在上午较为平静，下午容易兴奋，这与活动量和外界刺激增加有关。</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 rounded-lg p-4">
+            <div class="flex items-start">
+                <div class="bg-green-100 rounded-full w-8 h-8 flex items-center justify-center mr-3 flex-shrink-0 mt-1">
+                    <i class="fas fa-comment-dots text-green-500"></i>
+                </div>
+                <div>
+                    <h4 class="font-medium mb-1">情绪引导建议</h4>
+                    <p class="text-sm text-gray-600">当宝贝处于兴奋状态时，可以引导进行平静的活动，如讲故事、画画或轻柔的音乐游戏，帮助调节情绪。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 情绪统计 -->
+    <div class="card">
+        <h3 class="font-semibold mb-3">本周情绪统计</h3>
+        
+        <div class="grid grid-cols-4 gap-2 mb-4">
+            <div class="text-center">
+                <div class="h-24 flex flex-col justify-end">
+                    <div class="bg-yellow-400 w-full rounded-t-md" style="height: 60%;"></div>
+                </div>
+                <p class="text-xs mt-1">开心</p>
+                <p class="text-xs font-medium">42%</p>
+            </div>
+            <div class="text-center">
+                <div class="h-24 flex flex-col justify-end">
+                    <div class="bg-blue-400 w-full rounded-t-md" style="height: 30%;"></div>
+                </div>
+                <p class="text-xs mt-1">兴奋</p>
+                <p class="text-xs font-medium">20%</p>
+            </div>
+            <div class="text-center">
+                <div class="h-24 flex flex-col justify-end">
+                    <div class="bg-green-400 w-full rounded-t-md" style="height: 45%;"></div>
+                </div>
+                <p class="text-xs mt-1">平静</p>
+                <p class="text-xs font-medium">35%</p>
+            </div>
+            <div class="text-center">
+                <div class="h-24 flex flex-col justify-end">
+                    <div class="bg-gray-400 w-full rounded-t-md" style="height: 5%;"></div>
+                </div>
+                <p class="text-xs mt-1">其他</p>
+                <p class="text-xs font-medium">3%</p>
+            </div>
+        </div>
+        
+        <div class="border-t border-gray-100 pt-3">
+            <p class="text-sm text-gray-500">相比上周，开心情绪增加了8%，兴奋情绪增加了5%，平静情绪减少了13%，表明宝贝最近情绪活跃度上升。</p>
+        </div>
+    </div>
+    
+    <style>
+        .text-primary {
+            color: var(--primary-color);
+        }
+    </style>
+</body>
+</html> 

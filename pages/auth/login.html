@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        body {
+            background-color: #f8f8f8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        .ios-status-bar {
+            height: 20px;
+        }
+        .login-container {
+            max-width: 100%;
+            padding: 0 24px;
+        }
+        .login-header {
+            margin-top: 50px;
+            margin-bottom: 40px;
+        }
+        .login-form {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+        }
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+        .form-input:focus {
+            border-color: #4A90E2;
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+            outline: none;
+        }
+        .login-btn {
+            width: 100%;
+            background-color: #4A90E2;
+            color: white;
+            font-weight: bold;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .login-btn:hover {
+            background-color: #3A80D2;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 24px 0;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .divider span {
+            margin: 0 10px;
+            color: #9B9B9B;
+        }
+        .social-login {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 24px;
+        }
+        .social-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        .wechat {
+            background-color: #07C160;
+            color: white;
+        }
+        .qq {
+            background-color: #12B7F5;
+            color: white;
+        }
+        .alipay {
+            background-color: #1677FF;
+            color: white;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">12:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <div class="login-container mx-auto">
+        <div class="login-header text-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/3364/3364044.png" alt="小星语" class="w-24 h-24 mx-auto mb-4">
+            <h1 class="text-3xl font-bold text-gray-800">欢迎回到小星语</h1>
+            <p class="text-gray-600 mt-2">您的儿童语言发展助手</p>
+        </div>
+        
+        <div class="login-form">
+            <form action="#" method="post">
+                <div class="mb-4">
+                    <input type="text" class="form-input" placeholder="手机号/账号" required>
+                </div>
+                <div class="mb-6">
+                    <input type="password" class="form-input" placeholder="密码" required>
+                </div>
+                <button type="submit" class="login-btn">登 录</button>
+            </form>
+            
+            <div class="divider">
+                <span>or</span>
+            </div>
+            
+            <div class="social-login">
+                <a href="#" class="social-btn wechat">
+                    <i class="fab fa-weixin fa-lg"></i>
+                </a>
+                <a href="#" class="social-btn qq">
+                    <i class="fab fa-qq fa-lg"></i>
+                </a>
+                <a href="#" class="social-btn alipay">
+                    <i class="fab fa-alipay fa-lg"></i>
+                </a>
+            </div>
+            
+            <div class="footer-links">
+                <a href="forgot.html" class="text-blue-500 text-sm">忘记密码?</a>
+                <a href="register.html" class="text-blue-500 text-sm">注册新账号</a>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8">
+            <p class="text-xs text-gray-500">登录即表示您同意小星语的</p>
+            <p class="text-xs">
+                <a href="#" class="text-blue-500">服务条款</a> 和 
+                <a href="#" class="text-blue-500">隐私政策</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // 显示当前时间
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector('.time').textContent = `${hours}:${minutes}`;
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // 更新状态栏时间
+            updateTime();
+            setInterval(updateTime, 60000); // 每分钟更新一次
+            
+            // 登录表单提交
+            document.querySelector('form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // 这里可以添加登录验证逻辑
+                window.location.href = '../main/home.html';
+            });
+            
+            // 社交登录按钮
+            document.querySelectorAll('.social-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('社交账号登录功能即将上线');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

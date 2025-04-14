@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专家详情 - 小星语</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .ios-status-bar {
+            height: 20px;
+        }
+        .expert-cover {
+            height: 200px;
+            background: linear-gradient(to bottom, #4a90e2, #6ab7ff);
+        }
+        .expert-avatar {
+            width: 80px;
+            height: 80px;
+            border: 3px solid white;
+            margin-top: -40px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+        .tag-child {
+            background-color: #e3f2fd;
+            color: #1e88e5;
+        }
+        .tag-teen {
+            background-color: #f3e5f5;
+            color: #9c27b0;
+        }
+        .tag-family {
+            background-color: #e8f5e9;
+            color: #43a047;
+        }
+        .tag-depression {
+            background-color: #fffde7;
+            color: #fbc02d;
+        }
+        .tag-anxiety {
+            background-color: #fff3e0;
+            color: #fb8c00;
+        }
+        .star-rating {
+            color: #ffc107;
+        }
+        .tab-item.active {
+            color: #1e88e5;
+            border-bottom: 2px solid #1e88e5;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 24px;
+            bottom: 0;
+            width: 2px;
+            background-color: #e0e0e0;
+            z-index: 0;
+        }
+        .timeline-dot {
+            width: 10px;
+            height: 10px;
+            background-color: #1e88e5;
+            border-radius: 50%;
+            position: absolute;
+            left: -4px;
+            top: 24px;
+            z-index: 1;
+        }
+        .time-slot {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 8px;
+            margin: 4px;
+            text-align: center;
+        }
+        .time-slot.available {
+            background-color: #f5f5f5;
+        }
+        .time-slot.selected {
+            background-color: #e3f2fd;
+            border-color: #1e88e5;
+            color: #1e88e5;
+        }
+        .time-slot.unavailable {
+            background-color: #f5f5f5;
+            color: #9e9e9e;
+            text-decoration: line-through;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col h-screen">
+    <!-- iOS状态栏 -->
+    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
+        <div class="time">10:30</div>
+        <div class="status-icons flex space-x-2">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+    
+    <!-- 头部信息 -->
+    <div class="expert-header">
+        <div class="expert-cover relative">
+            <div class="absolute top-0 left-0 right-0 p-4">
+                <a href="consultant_list.html" class="text-white">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+                <div class="float-right text-white">
+                    <i class="fas fa-share-alt mr-4"></i>
+                    <i class="far fa-heart"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="expert-info bg-white px-4 pb-4 relative">
+            <div class="flex">
+                <img src="https://cdn-icons-png.flaticon.com/512/3774/3774299.png" alt="李明" class="expert-avatar rounded-full object-cover">
+                <div class="ml-3 mt-3">
+                    <h2 class="text-xl font-bold">李明 教授</h2>
+                    <p class="text-sm text-gray-600">北京大学第六医院</p>
+                </div>
+            </div>
+            
+            <div class="ratings flex items-center mt-2">
+                <div class="star-rating text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="text-sm text-gray-500 ml-1">4.8 (136条评价)</span>
+            </div>
+            
+            <div class="price mt-2 flex items-center">
+                <span class="text-red-500 font-bold text-lg">¥500</span>
+                <span class="text-gray-500 text-sm ml-1">/次 (50分钟)</span>
+            </div>
+            
+            <div class="tags mt-3 flex flex-wrap">
+                <span class="tag tag-child">儿童心理</span>
+                <span class="tag tag-anxiety">焦虑症</span>
+                <span class="tag tag-depression">抑郁症</span>
+                <span class="tag tag-family">家庭关系</span>
+                <span class="tag tag-teen">青少年心理</span>
+            </div>
+            
+            <div class="action-buttons mt-4 flex">
+                <button class="flex-1 mr-2 bg-blue-500 text-white py-2 rounded-full text-sm font-medium">
+                    立即预约
+                </button>
+                <button class="flex-1 ml-2 bg-white border border-blue-500 text-blue-500 py-2 rounded-full text-sm font-medium">
+                    在线咨询
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 选项卡 -->
+    <div class="tabs bg-white mt-2 px-4 flex border-b">
+        <div class="tab-item active py-3 px-4 text-sm font-medium">
+            专家简介
+        </div>
+        <div class="tab-item py-3 px-4 text-sm text-gray-500">
+            评价 (136)
+        </div>
+        <div class="tab-item py-3 px-4 text-sm text-gray-500">
+            可约时间
+        </div>
+    </div>
+    
+    <!-- 主要内容 -->
+    <div class="content flex-1 overflow-y-auto">
+        <!-- 专家简介 -->
+        <div class="intro bg-white px-4 py-4">
+            <h3 class="text-base font-bold mb-2">专业背景</h3>
+            <p class="text-sm text-gray-700 leading-relaxed">
+                李明教授，北京大学第六医院精神心理科主任，从事临床心理学工作超过20年。精通认知行为疗法(CBT)、辩证行为疗法(DBT)等多种心理治疗方法。专注于儿童青少年心理健康问题，尤其擅长抑郁症、焦虑症的治疗。
+            </p>
+            
+            <h3 class="text-base font-bold mt-4 mb-2">教育背景</h3>
+            <div class="timeline relative pl-6">
+                <div class="timeline-item relative pb-4">
+                    <div class="timeline-dot"></div>
+                    <div class="text-sm">
+                        <div class="font-medium">博士学位，临床心理学</div>
+                        <div class="text-gray-600">北京大学，2002-2005</div>
+                    </div>
+                </div>
+                <div class="timeline-item relative pb-4">
+                    <div class="timeline-dot"></div>
+                    <div class="text-sm">
+                        <div class="font-medium">硕士学位，心理学</div>
+                        <div class="text-gray-600">清华大学，1999-2002</div>
+                    </div>
+                </div>
+                <div class="timeline-item relative">
+                    <div class="timeline-dot"></div>
+                    <div class="text-sm">
+                        <div class="font-medium">学士学位，心理学</div>
+                        <div class="text-gray-600">复旦大学，1995-1999</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3 class="text-base font-bold mt-4 mb-2">个人荣誉</h3>
+            <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
+                <li>中国心理学会临床心理学专业委员会委员</li>
+                <li>全国优秀心理健康工作者（2018年）</li>
+                <li>北京市精神医学领军人才</li>
+                <li>发表国内外学术论文50余篇</li>
+            </ul>
+            
+            <h3 class="text-base font-bold mt-4 mb-2">擅长领域</h3>
+            <div class="text-sm text-gray-700 leading-relaxed">
+                <p>◆ 儿童青少年行为问题</p>
+                <p>◆ 注意力缺陷多动障碍(ADHD)</p>
+                <p>◆ 学习困难与考试焦虑</p>
+                <p>◆ 青少年抑郁、焦虑</p>
+                <p>◆ 亲子关系改善</p>
+                <p>◆ 儿童情绪管理</p>
+            </div>
+            
+            <h3 class="text-base font-bold mt-4 mb-2">咨询方式</h3>
+            <div class="grid grid-cols-2 gap-2 text-sm">
+                <div class="bg-gray-50 p-3 rounded-lg flex items-center">
+                    <i class="fas fa-video text-blue-500 mr-2"></i>
+                    <div>
+                        <div class="font-medium">视频咨询</div>
+                        <div class="text-gray-500 text-xs">50分钟</div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-lg flex items-center">
+                    <i class="fas fa-phone-alt text-blue-500 mr-2"></i>
+                    <div>
+                        <div class="font-medium">语音咨询</div>
+                        <div class="text-gray-500 text-xs">50分钟</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 mb-4">
+                <h3 class="text-base font-bold mb-3">可预约时间</h3>
+                <div class="date-selector flex overflow-x-auto py-2">
+                    <div class="date-item flex-shrink-0 w-16 h-16 border border-blue-500 rounded-lg flex flex-col items-center justify-center mr-2 bg-blue-50 text-blue-500">
+                        <div class="text-xs">今天</div>
+                        <div class="font-bold">10/30</div>
+                        <div class="text-xs">周一</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-16 border border-gray-200 rounded-lg flex flex-col items-center justify-center mr-2">
+                        <div class="text-xs text-gray-500">明天</div>
+                        <div class="font-medium">10/31</div>
+                        <div class="text-xs text-gray-500">周二</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-16 border border-gray-200 rounded-lg flex flex-col items-center justify-center mr-2">
+                        <div class="text-xs text-gray-500">后天</div>
+                        <div class="font-medium">11/01</div>
+                        <div class="text-xs text-gray-500">周三</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-16 border border-gray-200 rounded-lg flex flex-col items-center justify-center mr-2">
+                        <div class="text-xs text-gray-500"></div>
+                        <div class="font-medium">11/02</div>
+                        <div class="text-xs text-gray-500">周四</div>
+                    </div>
+                    <div class="date-item flex-shrink-0 w-16 h-16 border border-gray-200 rounded-lg flex flex-col items-center justify-center mr-2">
+                        <div class="text-xs text-gray-500"></div>
+                        <div class="font-medium">11/03</div>
+                        <div class="text-xs text-gray-500">周五</div>
+                    </div>
+                </div>
+                <div class="time-slots grid grid-cols-4 mt-3">
+                    <div class="time-slot available">
+                        09:00
+                    </div>
+                    <div class="time-slot available">
+                        10:00
+                    </div>
+                    <div class="time-slot unavailable">
+                        11:00
+                    </div>
+                    <div class="time-slot unavailable">
+                        12:00
+                    </div>
+                    <div class="time-slot selected">
+                        14:00
+                    </div>
+                    <div class="time-slot available">
+                        15:00
+                    </div>
+                    <div class="time-slot available">
+                        16:00
+                    </div>
+                    <div class="time-slot unavailable">
+                        17:00
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部预约按钮 -->
+    <div class="bottom-bar bg-white px-4 py-3 flex justify-between items-center shadow-lg">
+        <div class="price">
+            <div class="text-sm text-gray-500">咨询费用</div>
+            <div class="flex items-baseline">
+                <span class="text-red-500 font-bold text-lg">¥500</span>
+                <span class="text-gray-500 text-xs ml-1">/次</span>
+            </div>
+        </div>
+        <a href="appointment.html" class="bg-blue-500 text-white px-6 py-2 rounded-full text-sm font-medium">
+            立即预约
+        </a>
+    </div>
+</body>
+</html>
