@@ -6,15 +6,12 @@
     <title>发展报告 - 小星语</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../../css/custom.css">
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             background-color: #f8f8f8;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-        .ios-status-bar {
-            height: 20px;
         }
         .report-container {
             max-width: 100%;
@@ -203,9 +200,11 @@
 </head>
 <body>
     <!-- iOS状态栏 -->
-    <div class="ios-status-bar bg-white flex justify-between items-center px-4">
-        <div class="time">12:30</div>
-        <div class="status-icons flex space-x-2">
+    <div class="ios-status-bar">
+        <div class="time items-center">
+            <span>9:41</span>
+        </div>
+        <div class="flex items-center space-x-2">
             <i class="fas fa-signal"></i>
             <i class="fas fa-wifi"></i>
             <i class="fas fa-battery-full"></i>
@@ -366,26 +365,6 @@
                 <div class="suggestion-item">情绪卡片游戏：使用情绪卡片，帮助孩子更准确地识别和表达复杂情绪。</div>
             </div>
         </div>
-    </div>
-    
-    <!-- 底部导航栏 -->
-    <div class="bottom-nav fixed bottom-0 left-0 right-0 bg-white shadow-lg flex justify-around py-2">
-        <a href="../main/home.html" class="nav-item flex flex-col items-center p-2">
-            <i class="fas fa-home text-blue-500"></i>
-            <span class="text-xs text-blue-500">首页</span>
-        </a>
-        <a href="../main/report.html" class="nav-item flex flex-col items-center p-2">
-            <i class="fas fa-chart-line text-gray-500"></i>
-            <span class="text-xs text-gray-500">记录</span>
-        </a>
-        <a href="../main/expert.html" class="nav-item flex flex-col items-center p-2">
-            <i class="fas fa-user-md text-gray-500"></i>
-            <span class="text-xs text-gray-500">专家</span>
-        </a>
-        <a href="../main/system.html" class="nav-item flex flex-col items-center p-2">
-            <i class="fas fa-cog text-gray-500"></i>
-            <span class="text-xs text-gray-500">设置</span>
-        </a>
     </div>
     
     <script>
@@ -563,4 +542,4 @@
         });
     </script>
 </body>
-</html> 
+</html>

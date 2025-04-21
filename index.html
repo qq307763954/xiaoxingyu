@@ -59,6 +59,37 @@
       background-color: var(--primary-color);
       border-radius: 2px;
     }
+    
+    /* 子页面展示区域过渡效果 */
+    #homeContainer, #reportContainer, #expertContainer, 
+    #deviceContainer, #systemContainer, #authContainer {
+      transition: all 0.3s ease-in-out;
+      max-height: 9999px;
+      opacity: 1;
+      overflow: hidden;
+    }
+    
+    #homeContainer.hidden, #reportContainer.hidden, #expertContainer.hidden, 
+    #deviceContainer.hidden, #systemContainer.hidden, #authContainer.hidden {
+      max-height: 0;
+      opacity: 0;
+      margin: 0;
+      padding: 0;
+    }
+    
+    /* 按钮悬停效果 */
+    .toggle-btn {
+      transition: all 0.2s ease;
+    }
+    
+    .toggle-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .toggle-btn:active {
+      transform: translateY(0);
+    }
   </style>
 </head>
 <body class="bg-light text-gray-800">
@@ -415,12 +446,22 @@
     
     <!-- 子页面展示 -->
     <section class="container mx-auto px-4 py-8">
-        <h2 class="text-2xl font-bold text-gray-800 mb-6">子页面展示</h2>
+        <div class="flex items-center justify-between mb-6 flex-wrap">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2 md:mb-0">子页面展示</h2>
+            <button id="globalToggleBtn" class="toggle-btn bg-primary text-white px-4 py-2 rounded-md shadow-sm hover:bg-blue-600 transition-colors flex items-center">
+                <i class="fas fa-eye-slash mr-2"></i><span class="hidden md:inline">一键隐藏全部</span><span class="md:hidden">隐藏全部</span>
+            </button>
+        </div>
+        
         <!-- 首页子页面 -->
         <div class="mb-12">
             <div class="flex items-center justify-between mb-4 py-2 border-b">
                 <h3 class="text-xl font-bold text-gray-800">首页子界面</h3>
-                <button id="homeToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+                <div>
+                    <button id="homeToggleBtn" class="toggle-btn text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded ml-2">
+                        <i class="fas fa-eye mr-1"></i><span>显示</span>
+                    </button>
+                </div>
             </div>
             <div id="homeContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
                 <!-- 情绪详情页 -->
@@ -507,7 +548,11 @@
         <div class="mb-12">
             <div class="flex items-center justify-between mb-4 py-2 border-b">
                 <h3 class="text-xl font-bold text-gray-800">记录子界面</h3>
-                <button id="reportToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+                <div>
+                    <button id="reportToggleBtn" class="toggle-btn text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded ml-2">
+                        <i class="fas fa-eye mr-1"></i><span>显示</span>
+                    </button>
+                </div>
             </div>
             <div id="reportContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
                 <!-- 聊天详情页 -->
@@ -542,7 +587,11 @@
         <div class="mb-12">
             <div class="flex items-center justify-between mb-4 py-2 border-b">
                 <h3 class="text-xl font-bold text-gray-800">专家子界面</h3>
-                <button id="expertToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+                <div>
+                    <button id="expertToggleBtn" class="toggle-btn text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded ml-2">
+                        <i class="fas fa-eye mr-1"></i><span>显示</span>
+                    </button>
+                </div>
             </div>
             <div id="expertContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
                 <!-- 专家列表页 -->
@@ -759,7 +808,11 @@
         <div class="mb-12">
             <div class="flex items-center justify-between mb-4 py-2 border-b">
                 <h3 class="text-xl font-bold text-gray-800">我的子界面</h3>
-                <button id="systemToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+                <div>
+                    <button id="systemToggleBtn" class="toggle-btn text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded ml-2">
+                        <i class="fas fa-eye mr-1"></i><span>显示</span>
+                    </button>
+                </div>
             </div>
             <div id="systemContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
                 <!-- 会员管理页 -->
@@ -809,7 +862,11 @@
         <div class="mb-12">
             <div class="flex items-center justify-between mb-4 py-2 border-b">
                 <h3 class="text-xl font-bold text-gray-800">设备相关界面</h3>
-                <button id="deviceToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+                <div>
+                    <button id="deviceToggleBtn" class="toggle-btn text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded ml-2">
+                        <i class="fas fa-eye mr-1"></i><span>显示</span>
+                    </button>
+                </div>
             </div>
             <div id="deviceContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
                 <!-- 设备管理页 -->
@@ -870,7 +927,11 @@
         <div class="mb-12">
             <div class="flex items-center justify-between mb-4 py-2 border-b">
                 <h3 class="text-xl font-bold text-gray-800">认证页面</h3>
-                <button id="authToggleBtn" class="text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded">显示</button>
+                <div>
+                    <button id="authToggleBtn" class="toggle-btn text-sm bg-gray-200 hover:bg-gray-300 px-3 py-1 rounded ml-2">
+                        <i class="fas fa-eye mr-1"></i><span>显示</span>
+                    </button>
+                </div>
             </div>
             <div id="authContainer" class="grid grid-cols-1 md:grid-cols-2 gap-8 hidden">
                 <!-- 登录页 -->
@@ -962,6 +1023,28 @@
     </footer>
 <script src="js/main.js"></script>
 <script>
+    // 更新函数以适应新的按钮结构
+    function toggleElementVisibility(btnId, containerId) {
+        const btn = document.getElementById(btnId);
+        const container = document.getElementById(containerId);
+        if (btn && container) {
+            container.classList.toggle('hidden');
+            const isVisible = !container.classList.contains('hidden');
+            const btnSpan = btn.querySelector('span');
+            const btnIcon = btn.querySelector('i');
+            
+            if (btnSpan) {
+                btnSpan.textContent = isVisible ? '隐藏' : '显示';
+            }
+            
+            if (btnIcon) {
+                btnIcon.className = isVisible ? 'fas fa-eye-slash mr-1' : 'fas fa-eye mr-1';
+            }
+        } else {
+            console.error(`无法找到元素: 按钮ID=${btnId}, 容器ID=${containerId}`);
+        }
+    }
+
     document.getElementById('authToggleBtn').addEventListener('click', function() {
         toggleElementVisibility('authToggleBtn', 'authContainer');
     });
@@ -979,6 +1062,61 @@
     });
     document.getElementById('systemToggleBtn').addEventListener('click', function() {
         toggleElementVisibility('systemToggleBtn', 'systemContainer');
+    });
+    
+    // 全局切换按钮
+    document.getElementById('globalToggleBtn').addEventListener('click', function() {
+        const btn = document.getElementById('globalToggleBtn');
+        const desktopText = btn.querySelector('.md\\:inline');
+        const mobileText = btn.querySelector('.md\\:hidden');
+        const btnIcon = btn.querySelector('i');
+        const allContainers = ['homeContainer', 'reportContainer', 'expertContainer', 'deviceContainer', 'systemContainer', 'authContainer'];
+        const allToggleBtns = ['homeToggleBtn', 'reportToggleBtn', 'expertToggleBtn', 'deviceToggleBtn', 'systemToggleBtn', 'authToggleBtn'];
+        
+        // 检查当前是否至少有一个容器显示
+        const hasVisibleContainer = allContainers.some(id => !document.getElementById(id).classList.contains('hidden'));
+        
+        if (hasVisibleContainer) {
+            // 隐藏所有容器
+            allContainers.forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            
+            // 更新所有按钮文本和图标
+            allToggleBtns.forEach(id => {
+                const btn = document.getElementById(id);
+                const btnSpan = btn.querySelector('span');
+                const btnIcon = btn.querySelector('i');
+                
+                if (btnSpan) btnSpan.textContent = '显示';
+                if (btnIcon) btnIcon.className = 'fas fa-eye mr-1';
+            });
+            
+            // 更新全局按钮
+            btnIcon.className = 'fas fa-eye mr-2';
+            desktopText.textContent = '一键显示全部';
+            mobileText.textContent = '显示全部';
+        } else {
+            // 显示所有容器
+            allContainers.forEach(id => {
+                document.getElementById(id).classList.remove('hidden');
+            });
+            
+            // 更新所有按钮文本和图标
+            allToggleBtns.forEach(id => {
+                const btn = document.getElementById(id);
+                const btnSpan = btn.querySelector('span');
+                const btnIcon = btn.querySelector('i');
+                
+                if (btnSpan) btnSpan.textContent = '隐藏';
+                if (btnIcon) btnIcon.className = 'fas fa-eye-slash mr-1';
+            });
+            
+            // 更新全局按钮
+            btnIcon.className = 'fas fa-eye-slash mr-2';
+            desktopText.textContent = '一键隐藏全部';
+            mobileText.textContent = '隐藏全部';
+        }
     });
 </script>
 </body>
